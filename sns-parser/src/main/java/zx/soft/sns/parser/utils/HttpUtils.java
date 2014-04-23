@@ -1,4 +1,4 @@
-package zx.soft.sns.parser.http;
+package zx.soft.sns.parser.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
