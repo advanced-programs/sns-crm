@@ -101,8 +101,8 @@ public class SpiderMain {
 
 		//		final ThreadPoolExecutor result = new ThreadPoolExecutor(64, 64, 0L, TimeUnit.MILLISECONDS,
 		//				new ArrayBlockingQueue<Runnable>(128), new ThreadPoolExecutor.CallerRunsPolicy());
-		final ThreadPoolExecutor result = new ThreadPoolExecutor(16, 16, 0L, TimeUnit.MILLISECONDS,
-				new ArrayBlockingQueue<Runnable>(32), new ThreadPoolExecutor.CallerRunsPolicy());
+		final ThreadPoolExecutor result = new ThreadPoolExecutor(32, 32, 0L, TimeUnit.MILLISECONDS,
+				new ArrayBlockingQueue<Runnable>(64), new ThreadPoolExecutor.CallerRunsPolicy());
 		result.setThreadFactory(new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {

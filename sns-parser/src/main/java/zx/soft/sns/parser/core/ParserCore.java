@@ -27,8 +27,6 @@ public class ParserCore {
 
 	private static Logger logger = LoggerFactory.getLogger(ParserCore.class);
 
-	private static final HttpClient client = new HttpClient();
-
 	private static final String BASE_URL = "http://qun.594sgk.com/qq/";
 
 	private static final String URL_SUFFIX = ".html";
@@ -39,7 +37,7 @@ public class ParserCore {
 	public static void main(String[] args) throws IOException {
 
 		ParserCore parserCore = new ParserCore();
-		List<QQRecord> records = parserCore.parserQQInfo(69591601L);
+		List<QQRecord> records = parserCore.parserQQInfo(709136022L);
 		System.out.println(JsonUtils.toJson(records));
 	}
 
@@ -78,7 +76,7 @@ public class ParserCore {
 
 	private String doGet(long id) {
 
-		//		HttpMethod method = new GetMethod("http://qun.594sgk.com/s/?wd=" + id);
+		HttpClient client = new HttpClient();
 		HttpMethod method = new GetMethod(BASE_URL + id + URL_SUFFIX);
 		method.setRequestHeader("Accept", "*/*");
 		method.setRequestHeader("User-Agent",
@@ -102,6 +100,7 @@ public class ParserCore {
 			return null;
 		} finally {
 			method.abort();
+			//			client.getHttpConnectionManager().closeIdleConnections(60 * 1000);
 		}
 
 	}
@@ -123,10 +122,6 @@ public class ParserCore {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public void close() {
-		client.getHttpConnectionManager().closeIdleConnections(60 * 1000);
 	}
 
 }

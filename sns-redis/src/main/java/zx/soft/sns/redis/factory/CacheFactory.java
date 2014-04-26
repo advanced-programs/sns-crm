@@ -35,8 +35,6 @@ public class CacheFactory {
 		} catch (Exception e) {
 			logger.error("CacheFactory Exception is " + e);
 			throw new RuntimeException(e);
-		} finally {
-			instance.close();
 		}
 	}
 

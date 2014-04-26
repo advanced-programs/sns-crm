@@ -19,7 +19,7 @@
 		<lucene.version>4.7.0</lucene.version>
 		<hadoop.version>1.2.0</hadoop.version>
 		<mmseg4j.version>1.9.1</mmseg4j.version>
-		<jedis.version>2.4.2</jedis.version><!-- 2.1.0,2.4.2 -->
+		<jedis.version>2.4.2</jedis.version><!-- 2.2.14,2.4.2 -->
 	</properties>
 
 	<dependencyManagement>
