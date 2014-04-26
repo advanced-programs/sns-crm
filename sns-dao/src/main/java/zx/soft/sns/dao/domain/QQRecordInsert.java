@@ -1,19 +1,16 @@
-package zx.soft.sns.parser.domain;
+package zx.soft.sns.dao.domain;
 
-/**
- * QQ信息
- * @author wanggang
- *
- */
-public class Record {
+public class QQRecordInsert {
 
+	private final String tablename;
 	private final long qq; // QQ号
 	private final String name; // 群备注
 	private final boolean sex; // 性别：0--男，1---女
 	private final int age; // 年龄
 	private final long qqGroup; // QQ群
 
-	public Record(Builder builder) {
+	public QQRecordInsert(Builder builder) {
+		this.tablename = builder.tablename;
 		this.qq = builder.qq;
 		this.name = builder.name;
 		this.sex = builder.sex;
@@ -21,31 +18,32 @@ public class Record {
 		this.qqGroup = builder.qqGroup;
 	}
 
-	@Override
-	public String toString() {
-		return "QQRecord:[qq=" + qq + ",name=" + name + ",sex=" + sex + ",age=" + age + ",qqGroup=" + qqGroup + "]";
-	}
-
 	public static class Builder {
 
+		private String tablename = "";
 		private final long qq; // QQ号
 		private String name = ""; // 群备注
 		private boolean sex; // 性别：0--男，1---女
 		private int age; // 年龄
 		private long qqGroup; // QQ群
 
-		public Builder(long qq, String name) {
+		public Builder(String tablename, long qq) {
+			this.tablename = tablename;
 			this.qq = qq;
-			this.name = name;
-		}
-
-		public Builder setSex(boolean sex) {
-			this.sex = sex;
-			return this;
 		}
 
 		public Builder setAge(int age) {
 			this.age = age;
+			return this;
+		}
+
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder setSex(boolean sex) {
+			this.sex = sex;
 			return this;
 		}
 
@@ -54,10 +52,14 @@ public class Record {
 			return this;
 		}
 
-		public Record build() {
-			return new Record(this);
+		public QQRecordInsert build() {
+			return new QQRecordInsert(this);
 		}
 
+	}
+
+	public String getTablename() {
+		return tablename;
 	}
 
 	public long getQq() {

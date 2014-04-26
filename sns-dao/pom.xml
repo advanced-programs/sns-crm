@@ -6,18 +6,13 @@
 		<groupId>zx.soft</groupId>
 		<artifactId>sns-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>sns-parent/pom.xml</relativePath>
+		<relativePath>../sns-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>sns-dao</artifactId>
 	<name>SNS Dao</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>sentiment-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpasyncclient</artifactId>
