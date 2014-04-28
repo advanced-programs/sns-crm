@@ -73,6 +73,7 @@ public class SpiderRunnable implements Runnable {
 			cache.sadd(PROCESSED_USERS_KEY, qq + "");
 			List<QQRecord> records = parserCore.parserQQInfo(qq);
 			if (records == null) {
+				logger.info("qq: " + qq + " has no info.");
 				return;
 			}
 			String[] newqqs = save(records);

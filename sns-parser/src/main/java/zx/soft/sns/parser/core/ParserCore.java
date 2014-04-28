@@ -53,7 +53,6 @@ public class ParserCore {
 		// 获取html页面
 		String html = doGet(id);
 		if (html == null) {
-			logger.error("Id=" + id + " has no info.");
 			return null;
 		}
 		Elements trs = Jsoup.parse(html).select("table").select("tbody").select("tr");
@@ -93,11 +92,9 @@ public class ParserCore {
 			} else {
 				logger.error("id=" + id + " has error at statusCode=" + status);
 				return null;
-				//			throw new RuntimeException("statusCode=" + status);
 			}
 		} catch (IOException e) {
-			logger.error("id=" + id + " has error at IOException=" + e);
-			return null;
+			throw new RuntimeException("IOException: " + e);
 		} finally {
 			method.abort();
 			//			client.getHttpConnectionManager().closeIdleConnections(60 * 1000);
