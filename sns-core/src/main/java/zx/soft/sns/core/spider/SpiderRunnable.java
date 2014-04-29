@@ -56,7 +56,7 @@ public class SpiderRunnable implements Runnable {
 
 	public SpiderRunnable(final Cache cache, ParserCore parserCore, QQInfo qqInfo, long qq) {
 		if (qq == 0) {
-			throw new IllegalArgumentException("qq is not empty");
+			throw new IllegalArgumentException("qq is empty.");
 		}
 		this.qq = qq;
 		this.cache = cache;
