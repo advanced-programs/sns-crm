@@ -6,11 +6,12 @@ public class QQRecordInfo {
 	private String name = ""; // 群备注
 	private boolean sex; // 性别：0--男，1---女
 	private int age; // 年龄
-	private long qqGroup; // QQ群
+	private long qq_group; // QQ群
 
 	@Override
 	public String toString() {
-		return "QQRecordInfo:[qq=" + qq + ",name=" + name + ",sex=" + sex + ",age=" + age + ",qqGroup=" + qqGroup + "]";
+		return "QQRecordInfo:[qq=" + qq + ",name=" + name + ",sex=" + sex + ",age=" + age + ",qqGroup=" + qq_group
+				+ "]";
 	}
 
 	public long getQq() {
@@ -45,12 +46,12 @@ public class QQRecordInfo {
 		this.age = age;
 	}
 
-	public long getQqGroup() {
-		return qqGroup;
+	public long getQq_group() {
+		return qq_group;
 	}
 
-	public void setQqGroup(long qqGroup) {
-		this.qqGroup = qqGroup;
+	public void setQq_group(long qq_group) {
+		this.qq_group = qq_group;
 	}
 
 }

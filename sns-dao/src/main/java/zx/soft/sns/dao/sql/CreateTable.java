@@ -1,4 +1,4 @@
-package zx.soft.sns.dao.qq;
+package zx.soft.sns.dao.sql;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,9 @@ public class CreateTable {
 
 	private static Logger logger = LoggerFactory.getLogger(CreateTable.class);
 
-	private static final String QQ_INFO_TABLE = "qq_info_";
+	public static final String QQ_INFO_TABLE = "qq_info_";
+
+	public static final String WEIXIN_INFO_TABLE = "weixin_info_";
 
 	/**
 	 * 主函数
@@ -22,10 +24,9 @@ public class CreateTable {
 		SnsJDBC snsJDBC = new SnsJDBC();
 		for (int i = 0; i < 32; i++) {
 			logger.info("Creating at: " + i);
-			snsJDBC.createQQTable(QQ_INFO_TABLE + i);
+			snsJDBC.createWeixinTable(WEIXIN_INFO_TABLE + i);
 		}
 		snsJDBC.close();
 
 	}
-
 }

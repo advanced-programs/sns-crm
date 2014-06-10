@@ -38,7 +38,7 @@ public class HttpUtils {
 				method.setQueryString(URIUtil.encodeQuery(queryString));
 			}
 			client.executeMethod(method);
-			System.out.println(method.getStatusCode());
+			//			System.out.println(method.getStatusCode());
 			if (method.getStatusCode() == HttpStatus.SC_OK) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream(),
 						charset));

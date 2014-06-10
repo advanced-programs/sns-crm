@@ -19,13 +19,14 @@ import zx.soft.sns.parser.domain.QQRecord;
 import zx.soft.sns.parser.utils.JsonUtils;
 
 /**
- * 网页解析类
+ * QQ网页解析类
+ * 
  * @author wanggang
  *
  */
-public class ParserCore {
+public class ParserQQCore {
 
-	private static Logger logger = LoggerFactory.getLogger(ParserCore.class);
+	private static Logger logger = LoggerFactory.getLogger(ParserQQCore.class);
 
 	private static final String BASE_URL = "http://qun.594sgk.com/qq/";
 
@@ -36,11 +37,10 @@ public class ParserCore {
 	 */
 	public static void main(String[] args) throws IOException {
 
-		ParserCore parserCore = new ParserCore();
+		ParserQQCore parserCore = new ParserQQCore();
 		List<QQRecord> records = parserCore.parserQQInfo(709136022L);
 		System.out.println(JsonUtils.toJson(records));
 	}
-
 
 	/**
 	 * 根据qq号或者qq群号获取记录信息
@@ -65,7 +65,7 @@ public class ParserCore {
 						.setAge(Integer.parseInt(tds.get(3).text())).setQqGroup(Long.parseLong(tds.get(4).text()))
 						.build());
 			} else {
-				logger.info("Id="+id+" has no info.");
+				logger.info("Id=" + id + " has no info.");
 			}
 			tds = null;
 		}

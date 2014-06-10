@@ -3,7 +3,7 @@ package zx.soft.sns.core.tsdb;
 import java.util.ArrayList;
 import java.util.List;
 
-import zx.soft.sns.core.spider.SpiderRunnable;
+import zx.soft.sns.core.spider.SpiderQQRunnable;
 import zx.soft.sns.redis.dao.Cache;
 
 /**
@@ -23,8 +23,8 @@ public class GatherQueueReport implements Reportable {
 	public List<Tsdb> report() {
 		List<Tsdb> result = new ArrayList<Tsdb>();
 		long count;
-		count = cache.scard(SpiderRunnable.CLOSE_USERS_KEY);
-		result.add(new Tsdb("gather.spider." + SpiderRunnable.CLOSE_USERS_KEY, count, "type", SpiderRunnable.CLOSE_USERS_KEY + "-count"));
+		count = cache.scard(SpiderQQRunnable.CLOSE_USERS_KEY);
+		result.add(new Tsdb("gather.spider." + SpiderQQRunnable.CLOSE_USERS_KEY, count, "type", SpiderQQRunnable.CLOSE_USERS_KEY + "-count"));
 		// 其他数据根据需求添加
 		// ......
 		// ......

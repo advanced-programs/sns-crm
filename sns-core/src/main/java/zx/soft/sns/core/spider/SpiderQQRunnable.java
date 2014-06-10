@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import zx.soft.sns.dao.domain.QQRecordInsert;
 import zx.soft.sns.dao.qq.QQInfo;
-import zx.soft.sns.parser.core.ParserCore;
+import zx.soft.sns.parser.core.ParserQQCore;
 import zx.soft.sns.parser.domain.QQRecord;
 import zx.soft.sns.redis.dao.Cache;
 
@@ -18,11 +18,11 @@ import zx.soft.sns.redis.dao.Cache;
  * @author wanggang
  *
  */
-public class SpiderRunnable implements Runnable {
+public class SpiderQQRunnable implements Runnable {
 
-	private static Logger logger = LoggerFactory.getLogger(SpiderRunnable.class);
+	private static Logger logger = LoggerFactory.getLogger(SpiderQQRunnable.class);
 
-	private final ParserCore parserCore;
+	private final ParserQQCore parserCore;
 
 	private final QQInfo qqInfo;
 
@@ -54,7 +54,7 @@ public class SpiderRunnable implements Runnable {
 			+ "end\n" //
 			+ "return count";
 
-	public SpiderRunnable(final Cache cache, ParserCore parserCore, QQInfo qqInfo, long qq) {
+	public SpiderQQRunnable(final Cache cache, ParserQQCore parserCore, QQInfo qqInfo, long qq) {
 		if (qq == 0) {
 			throw new IllegalArgumentException("qq is empty.");
 		}

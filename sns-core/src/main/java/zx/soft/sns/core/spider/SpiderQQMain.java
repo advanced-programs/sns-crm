@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import zx.soft.sns.dao.common.MybatisConfig;
 import zx.soft.sns.dao.qq.QQInfo;
-import zx.soft.sns.parser.core.ParserCore;
+import zx.soft.sns.parser.core.ParserQQCore;
 import zx.soft.sns.redis.dao.Cache;
 import zx.soft.sns.redis.factory.CacheFactory;
 
@@ -20,9 +20,9 @@ import zx.soft.sns.redis.factory.CacheFactory;
  * @author wanggang
  *
  */
-public class SpiderMain {
+public class SpiderQQMain {
 
-	private static Logger logger = LoggerFactory.getLogger(SpiderMain.class);
+	private static Logger logger = LoggerFactory.getLogger(SpiderQQMain.class);
 
 	/**
 	 * 主函数
@@ -31,7 +31,7 @@ public class SpiderMain {
 
 
 		String seedQQ = "69591601";
-		SpiderMain.spider(seedQQ);
+		SpiderQQMain.spider(seedQQ);
 
 		//		SpiderMain.trancateRedis();
 
@@ -40,8 +40,8 @@ public class SpiderMain {
 	public static void trancateRedis() {
 
 		Cache cache = CacheFactory.getInstance();
-		String[] keys = {SpiderRunnable.CLOSE_USERS_KEY,SpiderRunnable.INSERTED_QQ_QQGROUP,
-				SpiderRunnable.PROCESSED_USERS_KEY,SpiderRunnable.WAIT_USERS_KEY};
+		String[] keys = {SpiderQQRunnable.CLOSE_USERS_KEY,SpiderQQRunnable.INSERTED_QQ_QQGROUP,
+				SpiderQQRunnable.PROCESSED_USERS_KEY,SpiderQQRunnable.WAIT_USERS_KEY};
 		cache.del(keys);
 
 		cache.close();
@@ -51,9 +51,9 @@ public class SpiderMain {
 
 		Cache cache = CacheFactory.getInstance();
 		logger.info("Add seed qq: " + seedQQ);
-		cache.sadd(SpiderRunnable.WAIT_USERS_KEY, seedQQ);
+		cache.sadd(SpiderQQRunnable.WAIT_USERS_KEY, seedQQ);
 
-		ParserCore parserCore = new ParserCore();
+		ParserQQCore parserCore = new ParserQQCore();
 		QQInfo qqInfo = new QQInfo(MybatisConfig.ServerEnum.sns);
 
 		//		TsdbReporter reporter = new TsdbReporter(Constant.getTsdbHost(), Constant.getTsdbPort());
@@ -70,10 +70,10 @@ public class SpiderMain {
 		}));
 
 		while (!pool.isShutdown()) {
-			String qq = cache.spop(SpiderRunnable.WAIT_USERS_KEY);
+			String qq = cache.spop(SpiderQQRunnable.WAIT_USERS_KEY);
 			if (qq != null) {
 				try {
-					pool.execute(new SpiderRunnable(cache, parserCore, qqInfo, Long.parseLong(qq)));
+					pool.execute(new SpiderQQRunnable(cache, parserCore, qqInfo, Long.parseLong(qq)));
 				} catch (IllegalArgumentException e) {
 					logger.warn("illegal argumentException, qq={}", qq);
 				} catch (Exception e) {

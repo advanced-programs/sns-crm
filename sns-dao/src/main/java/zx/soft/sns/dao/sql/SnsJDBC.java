@@ -1,4 +1,4 @@
-package zx.soft.sns.dao.qq;
+package zx.soft.sns.dao.sql;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -94,6 +94,25 @@ public class SnsJDBC {
 				+ "`qq_group` int(10) unsigned NOT NULL COMMENT '所属QQ群号',`lasttime` int(10) unsigned NOT NULL COMMENT '采集时间',"
 				+ "PRIMARY KEY (`id`),UNIQUE KEY `qq_qq_group` (`qq`,`qq_group`),KEY `qq` (`qq`),KEY `qq_group` (`qq_group`)) "
 				+ "ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='QQ数据表' AUTO_INCREMENT=1 ;";
+		createTable(sql);
+	}
+
+	/**
+	 * 创建微信数据表
+	 */
+	public void createWeixinTable(String tablename) {
+
+		String sql = "CREATE TABLE IF NOT EXISTS " + tablename
+				+ " (`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',"
+				+ "`wid` char(50) NOT NULL COMMENT '微信号',`name` char(50) NOT NULL COMMENT '用户名',"
+				+ "`open_id` char(30) NOT NULL COMMENT 'openid',`head_url` char(255) NOT NULL COMMENT '头像地址',"
+				+ "`description` char(255) NOT NULL COMMENT '功能介绍',`verify_info` char(255) NOT NULL COMMENT '认证信息',"
+				+ "`lasttime` int(10) unsigned NOT NULL,PRIMARY KEY (`id`),KEY `wid` (`wid`)) "
+				+ "ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='QQ数据表' AUTO_INCREMENT=1 ;";
+		createTable(sql);
+	}
+
+	private void createTable(String sql) {
 		try (Connection conn = getConnection(); Statement pstmt = conn.createStatement();) {
 			pstmt.execute(sql);
 		} catch (SQLException e) {
