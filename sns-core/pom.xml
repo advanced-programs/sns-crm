@@ -49,6 +49,16 @@
 			<artifactId>jackson-core-asl</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>4.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cc.pp.study</groupId>
+			<artifactId>analyzer-ik</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
