@@ -46,11 +46,18 @@ public class ParserWeixinCore {
 			Elements aTag = aLabel.select("div");
 			if (aTag.toString().length() != 0) {
 				openid = aLabel.attr("href");
+				String verifyInfo = "";
+				if (aLabel.select("p").size() > 1) {
+					verifyInfo = aLabel.select("p").get(1).select("span").get(1).text();
+				}
+				String description = "";
+				if (aLabel.select("p").size() > 0) {
+					description = aLabel.select("p").get(0).select("span").get(1).text();
+				}
 				result.add(new WeixinRecord.Builder(aTag.get(1).select("h4").text().substring(4), aTag.get(1)
 						.select("h3").text()).setOpenId(openid.substring(openid.indexOf("=") + 1))
-						.setHeadUrl(aTag.get(0).select("img").attr("src"))
-						.setDescription(aLabel.select("p").get(0).select("span").get(1).text())
-						.setVerifyInfo(aLabel.select("p").get(1).select("span").get(1).text()).build());
+						.setHeadUrl(aTag.get(0).select("img").attr("src")).setDescription(description)
+						.setVerifyInfo(verifyInfo).build());
 			}
 		}
 
@@ -58,7 +65,7 @@ public class ParserWeixinCore {
 	}
 
 	private String getHtml(String keyword, int page) {
-		String url = getUrl("冷笑话", page);
+		String url = getUrl(keyword, page);
 		logger.info("url=" + url);
 		return HttpUtils.doGet(url, "UTF-8");
 	}

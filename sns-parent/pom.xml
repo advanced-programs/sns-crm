@@ -227,11 +227,6 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.0.13</version>
-			</dependency>
-			<dependency>
 				<groupId>org.kohsuke.stapler</groupId>
 				<artifactId>json-lib</artifactId>
 				<version>2.1-rev6</version>
