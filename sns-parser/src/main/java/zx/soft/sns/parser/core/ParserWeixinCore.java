@@ -29,7 +29,7 @@ public class ParserWeixinCore {
 	public static void main(String[] args) {
 
 		ParserWeixinCore pwc = new ParserWeixinCore();
-		List<WeixinRecord> records = pwc.parserWeixinInfo("冷笑话");
+		List<WeixinRecord> records = pwc.parserWeixinInfo("中新软件");
 		System.out.println(JsonUtils.toJson(records));
 
 	}
@@ -42,12 +42,20 @@ public class ParserWeixinCore {
 
 		// 解析
 		Elements divs = Jsoup.parse(html).select("div[href]");
+		String verifyInfo = "", lastArticleUrl = "";
 		for (Element div : divs) {
+			if (div.select("p").size() > 2) {
+				verifyInfo = div.select("p").get(1).select("span").get(1).text();
+				lastArticleUrl = div.select("p").get(2).select("a").attr("href");
+			} else if (div.select("p").size() > 1) {
+				lastArticleUrl = div.select("p").get(1).select("a").attr("href");
+			}
 			result.add(new WeixinRecord.Builder(div.select("h4").text().substring(4), div.select("h3").text())
 					.setOpenId(div.attr("href").substring(12)).setHeadUrl(div.select("img").get(0).attr("src"))
-					.setDescription(div.select("p").get(0).select("span").get(1).text())
-					.setVerifyInfo(div.select("p").get(1).select("span").get(1).text())
-					.setLastArticleUrl(div.select("p").get(2).select("a").attr("href")).build());
+					.setDescription(div.select("p").get(0).select("span").get(1).text()).setVerifyInfo(verifyInfo)
+					.setLastArticleUrl(lastArticleUrl).build());
+			verifyInfo = "";
+			lastArticleUrl = "";
 		}
 
 		return result;
