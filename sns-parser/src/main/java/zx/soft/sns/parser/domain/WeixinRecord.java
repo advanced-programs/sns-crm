@@ -8,11 +8,13 @@ public class WeixinRecord {
 	private final String headUrl;
 	private final String description;
 	private final String verifyInfo;
+	private final String lastArticleUrl;
 
 	@Override
 	public String toString() {
 		return "WeixinRecord:[wid=" + wid + ",name=" + name + ",openId=" + openId + ",headUrl=" + headUrl
-				+ ",description=" + description + ",verifyInfo=" + verifyInfo + "]";
+				+ ",description=" + description + ",verifyInfo=" + verifyInfo + ",lastArticleUrl=" + lastArticleUrl
+				+ "]";
 	}
 
 	public WeixinRecord(Builder builder) {
@@ -22,6 +24,7 @@ public class WeixinRecord {
 		this.headUrl = builder.headUrl;
 		this.description = builder.description;
 		this.verifyInfo = builder.verifyInfo;
+		this.lastArticleUrl = builder.lastArticleUrl;
 	}
 
 	public static class Builder {
@@ -32,6 +35,7 @@ public class WeixinRecord {
 		private String headUrl = "";
 		private String description = "";
 		private String verifyInfo = "";
+		private String lastArticleUrl;
 
 		public Builder(String wid, String name) {
 			this.wid = wid;
@@ -55,6 +59,11 @@ public class WeixinRecord {
 
 		public Builder setVerifyInfo(String verifyInfo) {
 			this.verifyInfo = verifyInfo;
+			return this;
+		}
+
+		public Builder setLastArticleUrl(String lastArticleUrl) {
+			this.lastArticleUrl = lastArticleUrl;
 			return this;
 		}
 
@@ -86,6 +95,10 @@ public class WeixinRecord {
 
 	public String getVerifyInfo() {
 		return verifyInfo;
+	}
+
+	public String getLastArticleUrl() {
+		return lastArticleUrl;
 	}
 
 }

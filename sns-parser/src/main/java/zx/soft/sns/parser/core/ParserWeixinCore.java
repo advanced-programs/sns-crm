@@ -39,26 +39,15 @@ public class ParserWeixinCore {
 		List<WeixinRecord> result = new ArrayList<>();
 		// 获取html页面
 		String html = getHtml(keyword, 1);
+
 		// 解析
-		Elements aLabels = Jsoup.parse(html).select("a");
-		String openid;
-		for (Element aLabel : aLabels) {
-			Elements aTag = aLabel.select("div");
-			if (aTag.toString().length() != 0) {
-				openid = aLabel.attr("href");
-				String verifyInfo = "";
-				if (aLabel.select("p").size() > 1) {
-					verifyInfo = aLabel.select("p").get(1).select("span").get(1).text();
-				}
-				String description = "";
-				if (aLabel.select("p").size() > 0) {
-					description = aLabel.select("p").get(0).select("span").get(1).text();
-				}
-				result.add(new WeixinRecord.Builder(aTag.get(1).select("h4").text().substring(4), aTag.get(1)
-						.select("h3").text()).setOpenId(openid.substring(openid.indexOf("=") + 1))
-						.setHeadUrl(aTag.get(0).select("img").attr("src")).setDescription(description)
-						.setVerifyInfo(verifyInfo).build());
-			}
+		Elements divs = Jsoup.parse(html).select("div[href]");
+		for (Element div : divs) {
+			result.add(new WeixinRecord.Builder(div.select("h4").text().substring(4), div.select("h3").text())
+					.setOpenId(div.attr("href").substring(12)).setHeadUrl(div.select("img").get(0).attr("src"))
+					.setDescription(div.select("p").get(0).select("span").get(1).text())
+					.setVerifyInfo(div.select("p").get(1).select("span").get(1).text())
+					.setLastArticleUrl(div.select("p").get(2).select("a").attr("href")).build());
 		}
 
 		return result;
