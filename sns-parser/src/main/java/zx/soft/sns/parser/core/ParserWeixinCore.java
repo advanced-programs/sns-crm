@@ -42,6 +42,9 @@ public class ParserWeixinCore {
 
 		// 解析
 		Elements divs = Jsoup.parse(html).select("div[href]");
+		if (divs.size() == 0) {
+			return result;
+		}
 		String verifyInfo = "", lastArticleUrl = "";
 		for (Element div : divs) {
 			if (div.select("p").size() > 2) {
