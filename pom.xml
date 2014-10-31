@@ -20,6 +20,7 @@
 		<module>sns-dao</module>
 		<module>sns-redis</module>
 		<module>sns-core</module>
+		<module>crm</module>
 	</modules>
 
 	<build>

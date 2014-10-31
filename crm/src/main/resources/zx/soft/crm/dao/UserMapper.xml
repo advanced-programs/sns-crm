@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.crm.dao.UserMapper">
+
+	<select id="countList" resultType="int">
+		select count(mid) from user where uid = #{uid} and status != -1
+		<include refid="userQueryCondition" />
+	</select>
+
+	<select id="list" resultType="zx.soft.crm.model.User">
+        select uid, mid, is_member, identify, name, nick, gender, update_time,
+        status from user where uid = #{uid} and status != -1
+        <include refid="userQueryCondition"/>
+        limit #{offset}, #{limit}
+	</select>
+
+	<update id="update">
+		update user set update_time = now()
+            <if test="identify != null">
+                , identify = #{identify}
+            </if>
+            <if test="name != null">
+                , name = #{name}
+            </if>
+            <if test="nick != null">
+                , nick = #{nick}
+            </if>
+            <if test="gender != null">
+                , gender = #{gender}
+            </if>
+            <if test="status != null">
+                , status = #{status}
+            </if>
+		where uid = #{uid} and mid = #{mid}
+	</update>
+
+	<sql id="userQueryCondition">
+		<if test="is_member != null">
+			and is_member = #{is_member}
+		</if>
+
+        <if test="status != null">
+            and status = #{status}
+        </if>
+
+        <if test="nick != null">
+            and nick like #{nick}
+        </if>
+
+        <if test="name != null">
+            and name like #{name}
+        </if>
+
+        <if test="identify != null">
+            and identify like #{identify}
+        </if>
+
+        <if test="has_identify != null">
+            <if test="has_identify == true"> and identify != '' </if>
+            <if test="has_identify == false"> and identify = '' </if>
+        </if>
+
+		<if test="tag_id != null">
+			and mid in (select t.mid from user_tag t where t.tag_id =
+			#{tag_id} and t.uid = #{uid})
+		</if>
+
+		<if test="platform != null">
+            <if test="platform == 0">
+                and mid not in (select p.mid from platform p where p.uid =
+                #{uid})
+            </if>
+            <if test="platform > 0">
+                and mid in (select p.mid from platform p where p.uid =
+                #{uid} and p.platform = #{platform})
+            </if>
+		</if>
+
+		<if test="gender != null">
+			and gender = #{gender}
+		</if>
+
+		<if test="has_telephone != null">
+			and mid
+			<if test="has_telephone == true">in</if>
+			<if test="has_telephone == false">not in</if>
+			(select c.mid from user_contact c where
+			c.uid = #{uid} and
+			c.contact_id = 1)
+		</if>
+
+        <if test="con_telephone != null">
+            and mid in
+            (select c.mid from user_contact c where
+            c.uid = #{uid} and
+            c.contact_id = 1 and value = #{con_telephone})
+        </if>
+
+		<if test="has_email != null">
+			and mid
+			<if test="has_email == true">in</if>
+			<if test="has_email == false">not in</if>
+			(select c.mid from user_contact c where
+			c.uid
+			= #{uid} and c.contact_id
+			= 3)
+		</if>
+
+		<if test="has_qq != null">
+			and mid
+			<if test="has_qq == true">in</if>
+			<if test="has_qq == false">not in</if>
+			(select c.mid from user_contact c where c.uid
+			= #{uid} and
+			c.contact_id = 2)
+		</if>
+
+		<if test="has_message != null">
+             <if test="has_message == 1">
+                and mid in
+                (select a.mid from user_last_active a where a.uid
+                = #{uid} and
+                a.active_count > 1)
+             </if>
+             <if test="has_message == 0">
+                and mid not in
+                (select a.mid from user_last_active a where a.uid
+                = #{uid} and
+                a.active_count > 1)
+             </if>
+		</if>
+
+		<if test="has_activity != null">
+			and mid
+			<if test="has_activity == true">in</if>
+			<if test="has_activity == false">not in</if>
+			(select a.mid from user_last_active a where a.uid
+			= #{uid} and
+			a.active_count > 0)
+		</if>
+
+		<if test="province != null">
+			and mid in (select e.mid from user_ext e where e.uid =
+			#{uid} and e.province = #{province})
+		</if>
+
+		<if test="city != null">
+			and mid in (select e.mid from user_ext e where e.uid =
+			#{uid} and e.city = #{city})
+		</if>
+
+        <if test="member_card_no != null">
+            and mid in (select e.mid from member e where e.uid =
+            #{uid} and e.member_card_no like #{member_card_no})
+        </if>
+
+        <if test="min_member_point != null and max_member_point != null">
+            and mid in (select e.mid from member e where e.uid =
+            #{uid} and member_point >= #{min_member_point} and  #{max_member_point} >= member_point)
+        </if>
+
+        <if test="startTime != null and endTime != null">
+            and mid in (select a.mid from user_last_active a where a.uid= #{uid}
+            and last_active_time >= #{message_start_time} and #{message_end_time} >= last_active_time)
+        </if>
+
+        order by user.mid desc
+
+	</sql>
+</mapper>

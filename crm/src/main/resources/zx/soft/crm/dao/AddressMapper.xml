@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.crm.dao.AddressMapper">
+
+	<update id="update">
+		update member_address
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="province != null">
+				province = #{province},
+			</if>
+			<if test="city != null">
+				city = #{city},
+			</if>
+			<if test="county != null">
+				county = #{county},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+            <if test="phone != null">
+                phone = #{phone}
+            </if>
+		</set>
+		where address_id = #{address_id}
+	</update>
+
+</mapper>

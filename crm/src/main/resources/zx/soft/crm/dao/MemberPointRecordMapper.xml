@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.crm.dao.MemberPointRecordMapper">
+
+	<select id="countList" resultType="int">
+		select count(mid) from member_point_record where uid = #{uid} and mid = #{mid}
+		<include refid="queryCondition" />
+	</select>
+
+	<select id="list" resultType="zx.soft.crm.model.MemberPointRecord">
+		select uid, mid, reason, point_change, create_time
+		from
+		member_point_record where uid = #{uid} and mid = #{mid}
+		<include refid="queryCondition" />
+		limit #{offset}, #{limit}
+	</select>
+
+	<sql id="queryCondition">
+		<if test="start_time != null">
+			<![CDATA[ and create_time >= #{start_time} ]]>
+		</if>
+
+		<if test="end_time != null">
+			<![CDATA[ and create_time < #{end_time} ]]>
+		</if>
+	</sql>
+</mapper>

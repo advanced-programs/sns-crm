@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.crm.dao.MemberExpRecordMapper">
+
+	<select id="countList" resultType="int">
+		select count(mid) from member_exp_record where uid = #{uid} and mid = #{mid}
+		<include refid="queryCondition" />
+	</select>
+
+	<select id="listExpAndPoint" resultType="zx.soft.crm.model.MemberExpAndPointRecord">
+		(select 'point' `type`, uid, mid, reason, point_change `change`,
+		create_time from member_point_record where uid = #{uid} and mid =
+		#{mid})
+		UNION ALL
+		(select 'exp' `type`, uid, mid, reason, exp_change
+		`change`,
+		create_time from member_exp_record where uid = #{uid} and mid
+		= #{mid})
+		<include refid="queryCondition" />
+		ORDER BY create_time DESC limit #{offset}, #{limit}
+	</select>
+
+	<select id="list" resultType="zx.soft.crm.model.MemberExpRecord">
+		select uid, mid, reason, exp_change, create_time
+		from
+		member_exp_record
+		where uid = #{uid} and mid = #{mid}
+		<include refid="queryCondition" />
+		limit #{offset}, #{limit}
+	</select>
+
+	<sql id="queryCondition">
+		<if test="start_time != null">
+			<![CDATA[ and create_time >= #{start_time} ]]>
+		</if>
+
+		<if test="end_time != null">
+			<![CDATA[ and create_time < #{end_time} ]]>
+		</if>
+	</sql>
+</mapper>
