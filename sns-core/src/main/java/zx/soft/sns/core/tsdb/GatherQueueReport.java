@@ -3,8 +3,8 @@ package zx.soft.sns.core.tsdb;
 import java.util.ArrayList;
 import java.util.List;
 
-import zx.soft.sns.core.spider.SpiderQQRunnable;
-import zx.soft.sns.redis.dao.Cache;
+import zx.soft.redis.client.cache.Cache;
+import zx.soft.sns.core.spider.SpiderWeixinRunnable;
 
 /**
  * 统计Redis中的数据条数等实时数据。
@@ -23,8 +23,9 @@ public class GatherQueueReport implements Reportable {
 	public List<Tsdb> report() {
 		List<Tsdb> result = new ArrayList<Tsdb>();
 		long count;
-		count = cache.scard(SpiderQQRunnable.CLOSE_USERS_KEY);
-		result.add(new Tsdb("gather.spider." + SpiderQQRunnable.CLOSE_USERS_KEY, count, "type", SpiderQQRunnable.CLOSE_USERS_KEY + "-count"));
+		count = cache.scard(SpiderWeixinRunnable.CLOSE_USERS_KEY);
+		result.add(new Tsdb("gather.spider." + SpiderWeixinRunnable.CLOSE_USERS_KEY, count, "type",
+				SpiderWeixinRunnable.CLOSE_USERS_KEY + "-count"));
 		// 其他数据根据需求添加
 		// ......
 		// ......

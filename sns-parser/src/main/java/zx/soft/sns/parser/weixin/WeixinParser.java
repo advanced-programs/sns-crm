@@ -1,4 +1,4 @@
-package zx.soft.sns.parser.core;
+package zx.soft.sns.parser.weixin;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -12,12 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import zx.soft.sns.parser.domain.WeixinRecord;
-import zx.soft.sns.parser.utils.HttpUtils;
-import zx.soft.sns.parser.utils.JsonUtils;
+import zx.soft.utils.http.HttpUtils;
+import zx.soft.utils.json.JsonUtils;
 
-public class ParserWeixinCore {
+public class WeixinParser {
 
-	private static Logger logger = LoggerFactory.getLogger(ParserWeixinCore.class);
+	private static Logger logger = LoggerFactory.getLogger(WeixinParser.class);
 
 	private static final String BASE_URL = "http://weixin.sogou.com/weixin?";
 
@@ -28,7 +28,7 @@ public class ParserWeixinCore {
 	 */
 	public static void main(String[] args) {
 
-		ParserWeixinCore pwc = new ParserWeixinCore();
+		WeixinParser pwc = new WeixinParser();
 		List<WeixinRecord> records = pwc.parserWeixinInfo("中新软件");
 		System.out.println(JsonUtils.toJson(records));
 

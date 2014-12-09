@@ -9,11 +9,11 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import zx.soft.redis.client.cache.Cache;
+import zx.soft.redis.client.cache.CacheFactory;
 import zx.soft.sns.dao.common.MybatisConfig;
 import zx.soft.sns.dao.weixin.WeixinInfo;
-import zx.soft.sns.parser.core.ParserWeixinCore;
-import zx.soft.sns.redis.dao.Cache;
-import zx.soft.sns.redis.factory.CacheFactory;
+import zx.soft.sns.parser.weixin.WeixinParser;
 
 /**
  * 爬虫主类
@@ -53,7 +53,7 @@ public class SpiderWeixinMain {
 		logger.info("Add seed keyword: " + seedKeyword);
 		cache.sadd(SpiderWeixinRunnable.WAIT_USERS_KEY, seedKeyword);
 
-		ParserWeixinCore parserCore = new ParserWeixinCore();
+		WeixinParser parserCore = new WeixinParser();
 		WeixinInfo weixinInfo = new WeixinInfo(MybatisConfig.ServerEnum.sns);
 
 		//		TsdbReporter reporter = new TsdbReporter(Constant.getTsdbHost(), Constant.getTsdbPort());

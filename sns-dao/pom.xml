@@ -4,40 +4,24 @@
 
 	<parent>
 		<groupId>zx.soft</groupId>
-		<artifactId>sns-parent</artifactId>
-		<version>1.0.0</version>
-		<relativePath>../sns-parent/pom.xml</relativePath>
+		<artifactId>sns-crm</artifactId>
+		<version>1.3.0</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>sns-dao</artifactId>
 	<name>SNS Dao</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpasyncclient</artifactId>
-			<version>4.0-beta4</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-		</dependency>
+		<!-- 日志组件 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+		<!-- 数据库组件 -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -47,6 +31,7 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 		</dependency>
+		<!-- 测试组件 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -58,23 +43,15 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
 		</plugins>
 
-		<finalName>sns-dao</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 
 	</build>
 

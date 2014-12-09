@@ -4,52 +4,58 @@
 
 	<parent>
 		<groupId>zx.soft</groupId>
-		<artifactId>sns-parent</artifactId>
+		<artifactId>common-parent</artifactId>
 		<version>1.0.0</version>
-		<relativePath>sns-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>sns-crm</artifactId>
 	<packaging>pom</packaging>
+	<version>1.3.0</version>
 	<name>SNS CRM [Build POM]</name>
 	<description>Social Networking Services, CRM System.</description>
 
 	<modules>
-		<module>sns-parent</module>
 		<module>sns-parser</module>
 		<module>sns-dao</module>
-		<module>sns-redis</module>
 		<module>sns-core</module>
-		<module>crm</module>
 	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>zx.soft</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- 源码打包插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- JDK编译版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>zxsoft-public</id>
+			<name>Nexus Release Repository</name>
+			<url>http://192.168.3.23:18081/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
 
 	<inceptionYear>2014</inceptionYear>
 

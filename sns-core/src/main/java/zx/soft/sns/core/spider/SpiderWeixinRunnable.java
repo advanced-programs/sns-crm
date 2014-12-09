@@ -7,13 +7,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import zx.soft.redis.client.cache.Cache;
 import zx.soft.sns.core.utils.AnalyzerTool;
 import zx.soft.sns.core.utils.CheckSumUtils;
 import zx.soft.sns.dao.domain.WeixinRecordInsert;
 import zx.soft.sns.dao.weixin.WeixinInfo;
-import zx.soft.sns.parser.core.ParserWeixinCore;
 import zx.soft.sns.parser.domain.WeixinRecord;
-import zx.soft.sns.redis.dao.Cache;
+import zx.soft.sns.parser.weixin.WeixinParser;
 
 /**
  * 爬虫实现类
@@ -27,7 +27,7 @@ public class SpiderWeixinRunnable implements Runnable {
 
 	private static final AnalyzerTool analyzerTool = new AnalyzerTool();
 
-	private final ParserWeixinCore parserCore;
+	private final WeixinParser parserCore;
 
 	private final WeixinInfo weixinInfo;
 
@@ -59,7 +59,7 @@ public class SpiderWeixinRunnable implements Runnable {
 			+ "end\n" //
 			+ "return count";
 
-	public SpiderWeixinRunnable(final Cache cache, ParserWeixinCore parserCore, WeixinInfo weixinInfo, String keyword) {
+	public SpiderWeixinRunnable(final Cache cache, WeixinParser parserCore, WeixinInfo weixinInfo, String keyword) {
 		if (keyword.length() == 0) {
 			throw new IllegalArgumentException("keyword is empty.");
 		}
