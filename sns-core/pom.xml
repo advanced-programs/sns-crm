@@ -31,9 +31,9 @@
 		</dependency>
 		<!-- 分词组件 -->
 		<dependency>
-			<groupId>cc.pp.study</groupId>
+			<groupId>zx.soft</groupId>
 			<artifactId>analyzer-ik</artifactId>
-			<version>1.0.0</version>
+			<version>2.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -57,7 +57,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
 				<configuration>
 					<excludes>
 						<exclude>data_db.properties</exclude>
