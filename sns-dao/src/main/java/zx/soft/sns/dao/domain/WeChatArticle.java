@@ -1,5 +1,7 @@
 package zx.soft.sns.dao.domain;
 
+import java.util.Date;
+
 /**
  * 微信公共号文章数据模型
  * 
@@ -17,7 +19,7 @@ public class WeChatArticle {
 	// 文章中图片地址
 	private final String picUrl;
 	// 文章发布时间：精确到秒，10位数字
-	private final long timestamp;
+	private final Date timestamp;
 	// 公共号名称
 	private final String weChatName;
 	// 公共号OpenID
@@ -42,7 +44,7 @@ public class WeChatArticle {
 		private String title = "";
 		private String url = "";
 		private String picUrl = "";
-		private long timestamp;
+		private Date timestamp;
 		private String weChatName = "";
 		private String weChatOpenId = "";
 		private String content = "";
@@ -58,7 +60,7 @@ public class WeChatArticle {
 			return this;
 		}
 
-		public Builder setTimestamp(long timestamp) {
+		public Builder setTimestamp(Date timestamp) {
 			this.timestamp = timestamp;
 			return this;
 		}
@@ -100,7 +102,7 @@ public class WeChatArticle {
 		return picUrl;
 	}
 
-	public long getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
 

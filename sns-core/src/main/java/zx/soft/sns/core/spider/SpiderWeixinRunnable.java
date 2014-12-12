@@ -11,7 +11,7 @@ import zx.soft.redis.client.cache.Cache;
 import zx.soft.sns.core.utils.AnalyzerTool;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.sns.parser.domain.WeixinRecord;
-import zx.soft.sns.parser.weixin.WeixinParser;
+import zx.soft.sns.parser.wechat.WeChatParser;
 
 /**
  * 爬虫实现类
@@ -25,7 +25,7 @@ public class SpiderWeixinRunnable implements Runnable {
 
 	private static final AnalyzerTool analyzerTool = new AnalyzerTool();
 
-	private final WeixinParser parserCore;
+	private final WeChatParser parserCore;
 
 	private final WeChatDaoImpl weixinInfo;
 
@@ -57,7 +57,7 @@ public class SpiderWeixinRunnable implements Runnable {
 			+ "end\n" //
 			+ "return count";
 
-	public SpiderWeixinRunnable(final Cache cache, WeixinParser parserCore, WeChatDaoImpl weixinInfo, String keyword) {
+	public SpiderWeixinRunnable(final Cache cache, WeChatParser parserCore, WeChatDaoImpl weixinInfo, String keyword) {
 		if (keyword.length() == 0) {
 			throw new IllegalArgumentException("keyword is empty.");
 		}

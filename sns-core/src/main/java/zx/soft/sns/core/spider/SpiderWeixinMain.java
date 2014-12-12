@@ -13,7 +13,7 @@ import zx.soft.redis.client.cache.Cache;
 import zx.soft.redis.client.cache.CacheFactory;
 import zx.soft.sns.dao.common.MybatisConfig;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
-import zx.soft.sns.parser.weixin.WeixinParser;
+import zx.soft.sns.parser.wechat.WeChatParser;
 
 /**
  * 爬虫主类
@@ -53,7 +53,7 @@ public class SpiderWeixinMain {
 		logger.info("Add seed keyword: " + seedKeyword);
 		cache.sadd(SpiderWeixinRunnable.WAIT_USERS_KEY, seedKeyword);
 
-		WeixinParser parserCore = new WeixinParser();
+		WeChatParser parserCore = new WeChatParser();
 		WeChatDaoImpl weixinInfo = new WeChatDaoImpl(MybatisConfig.ServerEnum.sns);
 
 		//		TsdbReporter reporter = new TsdbReporter(Constant.getTsdbHost(), Constant.getTsdbPort());

@@ -13,6 +13,11 @@
 	<name>SNS Parser</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>sns-dao</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- 网页解析组件 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>

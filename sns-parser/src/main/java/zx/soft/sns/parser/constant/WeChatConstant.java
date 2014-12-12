@@ -10,7 +10,7 @@ public class WeChatConstant {
 
 	/**
 	 * type=1：http://weixin.sogou.com/weixin?type=1&query=XXX   微信公共号
-	 * type=2：http://weixin.sogou.com/weixin?type=2&query=XXX   微信文章
+	 * type=2：http://weixin.sogou.com/weixin?type=2&query=XXX   微信文章搜索
 	 */
 
 	// 根地址
@@ -19,11 +19,17 @@ public class WeChatConstant {
 	// 微信页面
 	public static final String PAGE_WEIXIN = "weixin?";
 
+	// 类型
+	public static final String TYPE = "type";
+
 	// 公共号类型
 	public static final String TYPE_PUBLIC_ACCOUNT = "1";
 
-	// 文章类型
+	// 文章搜索类型
 	public static final String TYPE_ARTICLE = "2";
+
+	// 查询关键词
+	public static final String QUERY = "query";
 
 	// 页码
 	public static final String PAGE = "page";
@@ -42,6 +48,7 @@ public class WeChatConstant {
 
 	/**
 	 * 公共号文章信息JS接口地址：所有文章列表
+	 * http://weixin.sogou.com/gzhjs?openid=oIWsFtzkvPAKoyJ-jOVgpp8V0k98&page=9
 	 * http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid=oIWsFtzkvPAKoyJ-jOVgpp8V0k98&page=9
 	 */
 

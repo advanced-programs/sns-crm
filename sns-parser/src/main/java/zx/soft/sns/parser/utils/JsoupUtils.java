@@ -7,7 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import zx.soft.sns.parser.domain.WeixinRecord;
+import zx.soft.sns.dao.domain.WeChatPublicAccount;
 
 /**
  * 解析页面工具
@@ -23,9 +23,9 @@ public class JsoupUtils {
 	 * @param html
 	 * @return
 	 */
-	public static List<WeixinRecord> parserWeixin(String html) {
+	public static List<WeChatPublicAccount> parserWeixin(String html) {
 
-		List<WeixinRecord> result = new ArrayList<>();
+		List<WeChatPublicAccount> result = new ArrayList<>();
 		// 解析
 		Elements divs = Jsoup.parse(html).select("div[href]");
 		if (divs.size() == 0) {
@@ -39,7 +39,7 @@ public class JsoupUtils {
 			} else if (div.select("p").size() > 1) {
 				lastArticleUrl = div.select("p").get(1).select("a").attr("href");
 			}
-			result.add(new WeixinRecord.Builder(div.select("h4").text().substring(4), div.select("h3").text())
+			result.add(new WeChatPublicAccount.Builder(div.select("h4").text().substring(4), div.select("h3").text())
 					.setOpenId(div.attr("href").substring(12)).setHeadUrl(div.select("img").get(0).attr("src"))
 					.setDescription(div.select("p").get(0).select("span").get(1).text()).setVerifyInfo(verifyInfo)
 					.setLastArticleUrl(lastArticleUrl).build());
