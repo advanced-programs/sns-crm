@@ -1,6 +1,12 @@
 package zx.soft.sns.dao.domain;
 
-public class WeixinRecordInfo {
+/**
+ * Mybatis返回的数据模型
+ * 
+ * @author wanggang
+ *
+ */
+public class WeChatPAInfo {
 
 	private String wid;
 	private String name;
@@ -8,12 +14,7 @@ public class WeixinRecordInfo {
 	private String head_url;
 	private String description;
 	private String verify_info;
-
-	@Override
-	public String toString() {
-		return "WeixinRecord:[wid=" + wid + ",name=" + name + ",openId=" + open_id + ",headUrl=" + head_url
-				+ ",description=" + description + ",verifyInfo=" + verify_info + "]";
-	}
+	private String last_article_url;
 
 	public String getWid() {
 		return wid;
@@ -61,6 +62,14 @@ public class WeixinRecordInfo {
 
 	public void setVerify_info(String verify_info) {
 		this.verify_info = verify_info;
+	}
+
+	public String getLast_article_url() {
+		return last_article_url;
+	}
+
+	public void setLast_article_url(String last_article_url) {
+		this.last_article_url = last_article_url;
 	}
 
 }

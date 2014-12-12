@@ -8,14 +8,9 @@
 		<property name="db_encoding" value="UTF8" />
 	</properties>
 	<typeAliases>
-		<!-- 舆情数据 -->
-		<typeAlias alias="QQRecordInsert" type="zx.soft.sns.dao.domain.QQRecordInsert" />
-		<typeAlias alias="QQRecordsSelect" type="zx.soft.sns.dao.domain.QQRecordsSelect" />
-		<typeAlias alias="QQRecordInfo" type="zx.soft.sns.dao.domain.QQRecordInfo" />
 		<!-- 微信数据 -->
-		<typeAlias alias="WeixinRecordInsert" type="zx.soft.sns.dao.domain.WeixinRecordInsert" />
-		<typeAlias alias="WeixinRecordSelect" type="zx.soft.sns.dao.domain.WeixinRecordSelect" />
-		<typeAlias alias="WeixinRecordInfo" type="zx.soft.sns.dao.domain.WeixinRecordInfo" />
+		<typeAlias alias="WeChatPAInsert" type="zx.soft.sns.dao.domain.WeChatPAInsert" />
+		<typeAlias alias="WeChatAInsert" type="zx.soft.sns.dao.domain.WeChatAInsert" />
 	</typeAliases>
 	<environments default="sns">
 		<environment id="sns">
@@ -33,8 +28,7 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="QQInfoDaoMapper.xml" />
-		<mapper resource="WeixinInfoDaoMapper.xml" />
+		<mapper resource="WeChatDaoMapper.xml" />
 	</mappers>
 </configuration>
 	

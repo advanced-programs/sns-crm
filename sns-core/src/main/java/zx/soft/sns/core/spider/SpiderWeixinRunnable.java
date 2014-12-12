@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import zx.soft.redis.client.cache.Cache;
 import zx.soft.sns.core.utils.AnalyzerTool;
-import zx.soft.sns.core.utils.CheckSumUtils;
-import zx.soft.sns.dao.domain.WeixinRecordInsert;
-import zx.soft.sns.dao.weixin.WeixinInfo;
+import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.sns.parser.domain.WeixinRecord;
 import zx.soft.sns.parser.weixin.WeixinParser;
 
@@ -29,7 +27,7 @@ public class SpiderWeixinRunnable implements Runnable {
 
 	private final WeixinParser parserCore;
 
-	private final WeixinInfo weixinInfo;
+	private final WeChatDaoImpl weixinInfo;
 
 	private final String keyword;
 
@@ -59,7 +57,7 @@ public class SpiderWeixinRunnable implements Runnable {
 			+ "end\n" //
 			+ "return count";
 
-	public SpiderWeixinRunnable(final Cache cache, WeixinParser parserCore, WeixinInfo weixinInfo, String keyword) {
+	public SpiderWeixinRunnable(final Cache cache, WeixinParser parserCore, WeChatDaoImpl weixinInfo, String keyword) {
 		if (keyword.length() == 0) {
 			throw new IllegalArgumentException("keyword is empty.");
 		}
@@ -98,10 +96,10 @@ public class SpiderWeixinRunnable implements Runnable {
 				// 下面两句顺序不可改变，否则会导致线程安全
 				cache.sadd(INSERTED_QQ_QQGROUP, record.getWid());
 				try {
-					weixinInfo.insertWeixinRecord(new WeixinRecordInsert.Builder(WEIXIN_TABLE
-							+ CheckSumUtils.getCRC32(record.getWid()) % 32, record.getWid(), record.getName())
-							.setHeadUrl(record.getHeadUrl()).setOpenId(record.getOpenId())
-							.setDescription(record.getDescription()).setVerifyInfo(record.getVerifyInfo()).build());
+					//					weixinInfo.insertWeixinRecord(new WeChatPAInsert.Builder(WEIXIN_TABLE
+					//							+ CheckSumUtils.getCRC32(record.getWid()) % 32, record.getWid(), record.getName())
+					//							.setHeadUrl(record.getHeadUrl()).setOpenId(record.getOpenId())
+					//							.setDescription(record.getDescription()).setVerifyInfo(record.getVerifyInfo()).build());
 				} catch (Exception e) {
 					logger.error("Insert wid=" + record.getWid() + " occurs Exception=" + e);
 				}

@@ -1,6 +1,6 @@
 package zx.soft.sns.dao.domain;
 
-public class WeixinRecordInsert {
+public class WeChatPAInsert {
 
 	private final String tablename;
 	private final String wid;
@@ -9,14 +9,9 @@ public class WeixinRecordInsert {
 	private final String headUrl;
 	private final String description;
 	private final String verifyInfo;
+	private final String lastArticleUrl;
 
-	@Override
-	public String toString() {
-		return "WeixinRecord:[wid=" + wid + ",name=" + name + ",openId=" + openId + ",headUrl=" + headUrl
-				+ ",description=" + description + ",verifyInfo=" + verifyInfo + "]";
-	}
-
-	public WeixinRecordInsert(Builder builder) {
+	public WeChatPAInsert(Builder builder) {
 		this.tablename = builder.tablename;
 		this.wid = builder.wid;
 		this.name = builder.name;
@@ -24,6 +19,7 @@ public class WeixinRecordInsert {
 		this.headUrl = builder.headUrl;
 		this.description = builder.description;
 		this.verifyInfo = builder.verifyInfo;
+		this.lastArticleUrl = builder.lastArticleUrl;
 	}
 
 	public static class Builder {
@@ -35,6 +31,7 @@ public class WeixinRecordInsert {
 		private String headUrl = "";
 		private String description = "";
 		private String verifyInfo = "";
+		private String lastArticleUrl;
 
 		public Builder(String tablename, String wid, String name) {
 			this.tablename = tablename;
@@ -62,8 +59,13 @@ public class WeixinRecordInsert {
 			return this;
 		}
 
-		public WeixinRecordInsert build() {
-			return new WeixinRecordInsert(this);
+		public Builder setLastArticleUrl(String lastArticleUrl) {
+			this.lastArticleUrl = lastArticleUrl;
+			return this;
+		}
+
+		public WeChatPAInsert build() {
+			return new WeChatPAInsert(this);
 		}
 
 	}
@@ -94,6 +96,10 @@ public class WeixinRecordInsert {
 
 	public String getVerifyInfo() {
 		return verifyInfo;
+	}
+
+	public String getLastArticleUrl() {
+		return lastArticleUrl;
 	}
 
 }

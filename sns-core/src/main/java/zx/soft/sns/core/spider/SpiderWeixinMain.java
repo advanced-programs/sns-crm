@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import zx.soft.redis.client.cache.Cache;
 import zx.soft.redis.client.cache.CacheFactory;
 import zx.soft.sns.dao.common.MybatisConfig;
-import zx.soft.sns.dao.weixin.WeixinInfo;
+import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.sns.parser.weixin.WeixinParser;
 
 /**
@@ -54,7 +54,7 @@ public class SpiderWeixinMain {
 		cache.sadd(SpiderWeixinRunnable.WAIT_USERS_KEY, seedKeyword);
 
 		WeixinParser parserCore = new WeixinParser();
-		WeixinInfo weixinInfo = new WeixinInfo(MybatisConfig.ServerEnum.sns);
+		WeChatDaoImpl weixinInfo = new WeChatDaoImpl(MybatisConfig.ServerEnum.sns);
 
 		//		TsdbReporter reporter = new TsdbReporter(Constant.getTsdbHost(), Constant.getTsdbPort());
 		//		reporter.addReport(new GatherQueueReport(cache));

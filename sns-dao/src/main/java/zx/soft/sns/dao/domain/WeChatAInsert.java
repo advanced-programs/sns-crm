@@ -1,31 +1,27 @@
 package zx.soft.sns.dao.domain;
 
+import java.util.Date;
+
 /**
  * 微信公共号文章数据模型
  * 
  * @author wgybzb
  *
  */
-public class WeChatArticle {
+public class WeChatAInsert {
 
-	// 文章唯一ID，由url经MD5加密得到
+	private final String tablename;
 	private final String aid;
-	// 文章标题
 	private final String title;
-	// 文章地址
 	private final String url;
-	// 文章中图片地址
 	private final String picUrl;
-	// 文章发布时间：精确到秒，10位数字
-	private final long timestamp;
-	// 公共号名称
+	private final Date timestamp;
 	private final String weChatName;
-	// 公共号OpenID
 	private final String weChatOpenId;
-	// 文章内容
 	private final String content;
 
-	public WeChatArticle(Builder builder) {
+	public WeChatAInsert(Builder builder) {
+		this.tablename = builder.tablename;
 		this.aid = builder.aid;
 		this.title = builder.title;
 		this.url = builder.url;
@@ -38,16 +34,18 @@ public class WeChatArticle {
 
 	public static class Builder {
 
+		private String tablename = "";
 		private String aid = "";
 		private String title = "";
 		private String url = "";
 		private String picUrl = "";
-		private long timestamp;
+		private Date timestamp = null;
 		private String weChatName = "";
 		private String weChatOpenId = "";
 		private String content = "";
 
-		public Builder(String aid, String title, String url) {
+		public Builder(String tablename, String aid, String title, String url) {
+			this.tablename = tablename;
 			this.aid = aid;
 			this.title = title;
 			this.url = url;
@@ -58,7 +56,7 @@ public class WeChatArticle {
 			return this;
 		}
 
-		public Builder setTimestamp(long timestamp) {
+		public Builder setTimestamp(Date timestamp) {
 			this.timestamp = timestamp;
 			return this;
 		}
@@ -78,10 +76,14 @@ public class WeChatArticle {
 			return this;
 		}
 
-		public WeChatArticle build() {
-			return new WeChatArticle(this);
+		public WeChatAInsert build() {
+			return new WeChatAInsert(this);
 		}
 
+	}
+
+	public String getTablename() {
+		return tablename;
 	}
 
 	public String getAid() {
@@ -100,7 +102,7 @@ public class WeChatArticle {
 		return picUrl;
 	}
 
-	public long getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
 
@@ -114,13 +116,6 @@ public class WeChatArticle {
 
 	public String getContent() {
 		return content;
-	}
-
-	@Override
-	public String toString() {
-		return "WeChatArticle:[aid=" + aid + ",title=" + title + ",url=" + url + ",picUrl=" + picUrl + ",timestamp="
-				+ timestamp + ",weChatName=" + weChatName + ",weChatOpenId=" + weChatOpenId + ",content=" + content
-				+ "]";
 	}
 
 }

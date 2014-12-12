@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.sns.dao.weixin.WeChatDao">
+
+	<!-- 插入微信公共帐号信息 -->
+	<insert id="insertWeChatPA" parameterType="WeChatPAInsert"
+		useGeneratedKeys="true" keyProperty="id" flushCache="true"
+		statementType="PREPARED">
+		INSERT INTO ${tablename}
+		(`wid`,`name`,`open_id`,`head_url`,`description`,`verify_info`,`last_article_url`,`lasttime`)
+		VALUES
+		(#{wid},#{name},#{openId},#{headUrl},#{description},#{verifyInfo},#{lastArticleUrl},NOW());
+	</insert>
+	
+	<!-- 插入微信文章信息 -->
+	<insert id="insertWeChatA" parameterType="WeChatAInsert"
+		useGeneratedKeys="true" keyProperty="id" flushCache="true"
+		statementType="PREPARED">
+		INSERT INTO ${tablename}
+		(`aid`,`title`,`url`,`pic_url`,`timestamp`,`wechat_name`,`wechat_open_id`,`content`,`lasttime`)
+		VALUES
+		(#{aid},#{title},#{url},#{picUrl},#{timestamp},#{weChatName},#{weChatOpenId},#{content},NOW());
+	</insert>
+
+</mapper>
