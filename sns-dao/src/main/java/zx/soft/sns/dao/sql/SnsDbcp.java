@@ -76,7 +76,7 @@ public class SnsDbcp {
 				+ "`open_id` varchar(30) NOT NULL COMMENT 'openid',`head_url` char(255) NOT NULL COMMENT '头像地址',"
 				+ "`description` char(255) NOT NULL COMMENT '功能介绍',`verify_info` char(255) NOT NULL COMMENT '认证信息',"
 				+ "`last_article_url` char(255) NOT NULL COMMENT '最近文章地址',`lasttime` datetime NOT NULL COMMENT '记录时间',"
-				+ "PRIMARY KEY (`id`),UNIQUE KEY `wid` (`wid`),UNIQUE KEY `name` (`name`),UNIQUE KEY `open_id` (`open_id`)) "
+				+ "PRIMARY KEY (`id`),UNIQUE KEY `wid` (`wid`),KEY `name` (`name`),UNIQUE KEY `open_id` (`open_id`)) "
 				+ "ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信公共帐号数据表' AUTO_INCREMENT=1 ;";
 		createTable(sql);
 	}

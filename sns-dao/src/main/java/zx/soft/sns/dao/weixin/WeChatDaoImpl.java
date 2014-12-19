@@ -21,7 +21,7 @@ public class WeChatDaoImpl {
 		try {
 			sqlSessionFactory = MybatisConfig.getSqlSessionFactory(server);
 		} catch (RuntimeException e) {
-			logger.error("WeChatDaoImpl RuntimeException: " + e.getMessage());
+			logger.error("Exception:{}, StackTrace:{}", e.getMessage(), e.getStackTrace());
 			throw new RuntimeException(e);
 		}
 	}

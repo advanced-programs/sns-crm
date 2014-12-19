@@ -30,15 +30,13 @@ public class SpiderWeChatPAMain {
 
 		String seedKeyword = "娱乐";
 		SpiderWeChatPAMain.spider(seedKeyword);
-
 		//		SpiderMain.trancateRedis();
-
 	}
 
 	public static void trancateRedis() {
 
 		Cache cache = CacheFactory.getInstance();
-		String[] keys = { SpiderWeChatPARunnable.CLOSE_USERS_KEY, SpiderWeChatPARunnable.INSERTED_QQ_QQGROUP,
+		String[] keys = { SpiderWeChatPARunnable.CLOSE_USERS_KEY, SpiderWeChatPARunnable.INSERTED_WECHAT,
 				SpiderWeChatPARunnable.PROCESSED_USERS_KEY, SpiderWeChatPARunnable.WAIT_USERS_KEY };
 		cache.del(keys);
 
@@ -91,7 +89,6 @@ public class SpiderWeChatPAMain {
 		}
 
 		cache.close();
-
 	}
 
 }

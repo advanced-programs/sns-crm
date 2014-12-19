@@ -24,7 +24,7 @@ public class SpiderWeChatPARunnable implements Runnable {
 
 	private static Logger logger = LoggerFactory.getLogger(SpiderWeChatPARunnable.class);
 
-	private static final AnalyzerTool analyzerTool = new AnalyzerTool();
+	private static final AnalyzerTool ANALYZER_TOOL = new AnalyzerTool();
 
 	private final WeChatParser weChatParser;
 
@@ -40,7 +40,7 @@ public class SpiderWeChatPARunnable implements Runnable {
 
 	public static final String WAIT_USERS_KEY = "sns:wechat:waitUsers";
 
-	public static final String INSERTED_QQ_QQGROUP = "sns:wechat:inserted";
+	public static final String INSERTED_WECHAT = "sns:wechat:inserted";
 
 	private static final String WECHAT_PUBLIC_ACCOUNTS = "wechat_public_accounts_";
 
@@ -85,7 +85,7 @@ public class SpiderWeChatPARunnable implements Runnable {
 			String[] keys = new String[] { WAIT_USERS_KEY, PROCESSED_USERS_KEY, CLOSE_USERS_KEY };
 			cache.eval(saddIfNotExistOthers_script, keys, newKeywords);
 		} catch (Exception e) {
-			throw new RuntimeException("keyword: " + keyword, e);
+			logger.error("Exception:{}, StackTrace:{}, Keyword:{}", e.getMessage(), e.getStackTrace(), keyword);
 		}
 
 	}
@@ -94,19 +94,20 @@ public class SpiderWeChatPARunnable implements Runnable {
 
 		HashSet<String> hs = new HashSet<>();
 		for (WeChatPublicAccount record : records) {
-			if (!cache.sismember(INSERTED_QQ_QQGROUP, record.getWid())) {
+			if (!cache.sismember(INSERTED_WECHAT, record.getWid())) {
 				// 下面两句顺序不可改变，否则会导致线程安全
-				cache.sadd(INSERTED_QQ_QQGROUP, record.getWid());
+				cache.sadd(INSERTED_WECHAT, record.getWid());
 				try {
 					weChatDaoImpl.insertWeChatPA(new WeChatPAInsert.Builder(WECHAT_PUBLIC_ACCOUNTS, record.getWid(),
 							record.getName()).setDescription(record.getDescription()).setHeadUrl(record.getHeadUrl())
 							.setLastArticleUrl(record.getLastArticleUrl()).setOpenId(record.getOpenId())
 							.setVerifyInfo(record.getVerifyInfo()).build());
 				} catch (Exception e) {
-					logger.error("Insert wid=" + record.getWid() + " occurs Exception=" + e);
+					logger.error("Exception:{}, StackTrace:{}, Wid:{}", e.getMessage(), e.getStackTrace(),
+							record.getWid());
 				}
 			}
-			String[] words = analyzerTool.analyzerTextToArr(record.getName() + record.getDescription()
+			String[] words = ANALYZER_TOOL.analyzerTextToArr(record.getName() + record.getDescription()
 					+ record.getVerifyInfo());
 			for (String word : words) {
 				hs.add(word);

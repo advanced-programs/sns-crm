@@ -12,6 +12,7 @@
 		<fileSet>
 			<directory>src/main/resources</directory>
 			<includes>
+				<include>logback.xml</include>
 				<include>data_db.properties</include>
 				<include>cache-config.properties</include>
 			</includes>
