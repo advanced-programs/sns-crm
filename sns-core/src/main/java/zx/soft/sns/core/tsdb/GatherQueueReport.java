@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zx.soft.redis.client.cache.Cache;
-import zx.soft.sns.core.spider.SpiderWeixinRunnable;
+import zx.soft.sns.core.spider.SpiderWeChatPARunnable;
 
 /**
  * 统计Redis中的数据条数等实时数据。
@@ -23,9 +23,9 @@ public class GatherQueueReport implements Reportable {
 	public List<Tsdb> report() {
 		List<Tsdb> result = new ArrayList<Tsdb>();
 		long count;
-		count = cache.scard(SpiderWeixinRunnable.CLOSE_USERS_KEY);
-		result.add(new Tsdb("gather.spider." + SpiderWeixinRunnable.CLOSE_USERS_KEY, count, "type",
-				SpiderWeixinRunnable.CLOSE_USERS_KEY + "-count"));
+		count = cache.scard(SpiderWeChatPARunnable.CLOSE_USERS_KEY);
+		result.add(new Tsdb("gather.spider." + SpiderWeChatPARunnable.CLOSE_USERS_KEY, count, "type",
+				SpiderWeChatPARunnable.CLOSE_USERS_KEY + "-count"));
 		// 其他数据根据需求添加
 		// ......
 		// ......

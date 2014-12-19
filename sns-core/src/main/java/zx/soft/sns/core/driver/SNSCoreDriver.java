@@ -3,7 +3,7 @@ package zx.soft.sns.core.driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import zx.soft.sns.core.spider.SpiderWeixinMain;
+import zx.soft.sns.core.spider.SpiderWeChatPAMain;
 
 /**
  * 驱动类
@@ -28,7 +28,7 @@ public class SNSCoreDriver {
 		switch (args[0]) {
 		case "spiderWeixinMain":
 			logger.info("爬取QQ数据： ");
-			SpiderWeixinMain.main(leftArgs);
+			SpiderWeChatPAMain.main(leftArgs);
 			break;
 		default:
 			return;

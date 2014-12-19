@@ -9,39 +9,40 @@ import org.slf4j.LoggerFactory;
 
 import zx.soft.redis.client.cache.Cache;
 import zx.soft.sns.core.utils.AnalyzerTool;
+import zx.soft.sns.dao.domain.WeChatPAInsert;
+import zx.soft.sns.dao.domain.WeChatPublicAccount;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
-import zx.soft.sns.parser.domain.WeixinRecord;
 import zx.soft.sns.parser.wechat.WeChatParser;
 
 /**
- * 爬虫实现类
+ * 爬取微信公共帐号多线程实现类
  * 
  * @author wanggang
  *
  */
-public class SpiderWeixinRunnable implements Runnable {
+public class SpiderWeChatPARunnable implements Runnable {
 
-	private static Logger logger = LoggerFactory.getLogger(SpiderWeixinRunnable.class);
+	private static Logger logger = LoggerFactory.getLogger(SpiderWeChatPARunnable.class);
 
 	private static final AnalyzerTool analyzerTool = new AnalyzerTool();
 
-	private final WeChatParser parserCore;
+	private final WeChatParser weChatParser;
 
-	private final WeChatDaoImpl weixinInfo;
+	private final WeChatDaoImpl weChatDaoImpl;
 
 	private final String keyword;
 
 	private final Cache cache;
 
-	public static final String CLOSE_USERS_KEY = "sns:weixin:closeUsers";
+	public static final String CLOSE_USERS_KEY = "sns:wechat:closeUsers";
 
-	public static final String PROCESSED_USERS_KEY = "sns:weixin:processedUsers";
+	public static final String PROCESSED_USERS_KEY = "sns:wechat:processedUsers";
 
-	public static final String WAIT_USERS_KEY = "sns:weixin:waitUsers";
+	public static final String WAIT_USERS_KEY = "sns:wechat:waitUsers";
 
-	public static final String INSERTED_QQ_QQGROUP = "sns:weixin:inserted";
+	public static final String INSERTED_QQ_QQGROUP = "sns:wechat:inserted";
 
-	private static final String WEIXIN_TABLE = "weixin_info_";
+	private static final String WECHAT_PUBLIC_ACCOUNTS = "wechat_public_accounts_";
 
 	private static AtomicInteger count = new AtomicInteger(0);
 
@@ -57,14 +58,15 @@ public class SpiderWeixinRunnable implements Runnable {
 			+ "end\n" //
 			+ "return count";
 
-	public SpiderWeixinRunnable(final Cache cache, WeChatParser parserCore, WeChatDaoImpl weixinInfo, String keyword) {
+	public SpiderWeChatPARunnable(final Cache cache, WeChatParser weChatParser, WeChatDaoImpl weChatDaoImpl,
+			String keyword) {
 		if (keyword.length() == 0) {
 			throw new IllegalArgumentException("keyword is empty.");
 		}
 		this.keyword = keyword;
 		this.cache = cache;
-		this.parserCore = parserCore;
-		this.weixinInfo = weixinInfo;
+		this.weChatParser = weChatParser;
+		this.weChatDaoImpl = weChatDaoImpl;
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class SpiderWeixinRunnable implements Runnable {
 
 		try {
 			cache.sadd(PROCESSED_USERS_KEY, keyword + "");
-			List<WeixinRecord> records = parserCore.parserWeixinInfo(keyword);
+			List<WeChatPublicAccount> records = weChatParser.parserWeChatPublicAccount(keyword, 1);
 			if (records == null) {
 				logger.info("keyword: " + keyword + " has no info.");
 				return;
@@ -88,18 +90,18 @@ public class SpiderWeixinRunnable implements Runnable {
 
 	}
 
-	private String[] save(List<WeixinRecord> records) {
+	private String[] save(List<WeChatPublicAccount> records) {
 
 		HashSet<String> hs = new HashSet<>();
-		for (WeixinRecord record : records) {
+		for (WeChatPublicAccount record : records) {
 			if (!cache.sismember(INSERTED_QQ_QQGROUP, record.getWid())) {
 				// 下面两句顺序不可改变，否则会导致线程安全
 				cache.sadd(INSERTED_QQ_QQGROUP, record.getWid());
 				try {
-					//					weixinInfo.insertWeixinRecord(new WeChatPAInsert.Builder(WEIXIN_TABLE
-					//							+ CheckSumUtils.getCRC32(record.getWid()) % 32, record.getWid(), record.getName())
-					//							.setHeadUrl(record.getHeadUrl()).setOpenId(record.getOpenId())
-					//							.setDescription(record.getDescription()).setVerifyInfo(record.getVerifyInfo()).build());
+					weChatDaoImpl.insertWeChatPA(new WeChatPAInsert.Builder(WECHAT_PUBLIC_ACCOUNTS, record.getWid(),
+							record.getName()).setDescription(record.getDescription()).setHeadUrl(record.getHeadUrl())
+							.setLastArticleUrl(record.getLastArticleUrl()).setOpenId(record.getOpenId())
+							.setVerifyInfo(record.getVerifyInfo()).build());
 				} catch (Exception e) {
 					logger.error("Insert wid=" + record.getWid() + " occurs Exception=" + e);
 				}

@@ -1,8 +1,5 @@
 package zx.soft.sns.core.spider;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -14,16 +11,17 @@ import zx.soft.redis.client.cache.CacheFactory;
 import zx.soft.sns.dao.common.MybatisConfig;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.sns.parser.wechat.WeChatParser;
+import zx.soft.utils.threads.ApplyThreadPool;
 
 /**
- * 爬虫主类
+ * 爬虫微信公共帐号主程序
  * 
  * @author wanggang
  *
  */
-public class SpiderWeixinMain {
+public class SpiderWeChatPAMain {
 
-	private static Logger logger = LoggerFactory.getLogger(SpiderWeixinMain.class);
+	private static Logger logger = LoggerFactory.getLogger(SpiderWeChatPAMain.class);
 
 	/**
 	 * 主函数
@@ -31,7 +29,7 @@ public class SpiderWeixinMain {
 	public static void main(String[] args) {
 
 		String seedKeyword = "娱乐";
-		SpiderWeixinMain.spider(seedKeyword);
+		SpiderWeChatPAMain.spider(seedKeyword);
 
 		//		SpiderMain.trancateRedis();
 
@@ -40,8 +38,8 @@ public class SpiderWeixinMain {
 	public static void trancateRedis() {
 
 		Cache cache = CacheFactory.getInstance();
-		String[] keys = { SpiderWeixinRunnable.CLOSE_USERS_KEY, SpiderWeixinRunnable.INSERTED_QQ_QQGROUP,
-				SpiderWeixinRunnable.PROCESSED_USERS_KEY, SpiderWeixinRunnable.WAIT_USERS_KEY };
+		String[] keys = { SpiderWeChatPARunnable.CLOSE_USERS_KEY, SpiderWeChatPARunnable.INSERTED_QQ_QQGROUP,
+				SpiderWeChatPARunnable.PROCESSED_USERS_KEY, SpiderWeChatPARunnable.WAIT_USERS_KEY };
 		cache.del(keys);
 
 		cache.close();
@@ -51,7 +49,7 @@ public class SpiderWeixinMain {
 
 		Cache cache = CacheFactory.getInstance();
 		logger.info("Add seed keyword: " + seedKeyword);
-		cache.sadd(SpiderWeixinRunnable.WAIT_USERS_KEY, seedKeyword);
+		cache.sadd(SpiderWeChatPARunnable.WAIT_USERS_KEY, seedKeyword);
 
 		WeChatParser parserCore = new WeChatParser();
 		WeChatDaoImpl weixinInfo = new WeChatDaoImpl(MybatisConfig.ServerEnum.sns);
@@ -59,7 +57,7 @@ public class SpiderWeixinMain {
 		//		TsdbReporter reporter = new TsdbReporter(Constant.getTsdbHost(), Constant.getTsdbPort());
 		//		reporter.addReport(new GatherQueueReport(cache));
 
-		final ThreadPoolExecutor pool = getThreadPoolExecutor();
+		final ThreadPoolExecutor pool = ApplyThreadPool.getThreadPoolExector(16);
 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			@Override
@@ -69,10 +67,10 @@ public class SpiderWeixinMain {
 		}));
 
 		while (!pool.isShutdown()) {
-			String keyword = cache.spop(SpiderWeixinRunnable.WAIT_USERS_KEY);
+			String keyword = cache.spop(SpiderWeChatPARunnable.WAIT_USERS_KEY);
 			if (keyword != null) {
 				try {
-					pool.execute(new SpiderWeixinRunnable(cache, parserCore, weixinInfo, keyword));
+					pool.execute(new SpiderWeChatPARunnable(cache, parserCore, weixinInfo, keyword));
 				} catch (IllegalArgumentException e) {
 					logger.warn("illegal argumentException, keyword={}", keyword);
 				} catch (Exception e) {
@@ -94,30 +92,6 @@ public class SpiderWeixinMain {
 
 		cache.close();
 
-	}
-
-	private static ThreadPoolExecutor getThreadPoolExecutor() {
-
-		//		final ThreadPoolExecutor result = new ThreadPoolExecutor(64, 64, 0L, TimeUnit.MILLISECONDS,
-		//				new ArrayBlockingQueue<Runnable>(128), new ThreadPoolExecutor.CallerRunsPolicy());
-		final ThreadPoolExecutor result = new ThreadPoolExecutor(32, 32, 0L, TimeUnit.MILLISECONDS,
-				new ArrayBlockingQueue<Runnable>(64), new ThreadPoolExecutor.CallerRunsPolicy());
-		result.setThreadFactory(new ThreadFactory() {
-			@Override
-			public Thread newThread(Runnable r) {
-				Thread t = new Thread(r);
-				t.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-					@Override
-					public void uncaughtException(Thread t, Throwable e) {
-						logger.error("Thread exception: " + t.getName(), e);
-						result.shutdown();
-					}
-				});
-				return t;
-			}
-		});
-
-		return result;
 	}
 
 }
