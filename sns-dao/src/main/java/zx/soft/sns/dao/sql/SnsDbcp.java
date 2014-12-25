@@ -67,6 +67,22 @@ public class SnsDbcp {
 	}
 
 	/**
+	 * 创建QQ信息数据表
+	 */
+	public void createQQAccountTable(String tablename) {
+		String sql = "CREATE TABLE IF NOT EXISTS "
+				+ tablename
+				+ " (`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',"
+				+ "`qq` int(10) unsigned NOT NULL COMMENT 'QQ号',`name` char(50) NOT NULL COMMENT '用户名',"
+				+ "`gender` char(2) NOT NULL COMMENT '性别',`age` tinyint(3) unsigned NOT NULL COMMENT '年龄',"
+				+ "`qq_group` int(10) unsigned NOT NULL COMMENT 'QQ群号',"
+				+ "`lasttime` datetime NOT NULL COMMENT '记录时间',"
+				+ "PRIMARY KEY (`id`),KEY `qq` (`qq`),KEY `qq_group` (`qq_group`),UNIQUE KEY `qq_qqgroup` (`qq`,`qq_group`)) "
+				+ "ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='QQ帐号数据表' AUTO_INCREMENT=1 ;";
+		createTable(sql);
+	}
+
+	/**
 	 * 创建微信公共帐号数据表
 	 */
 	public void createWeChatPublicAccountTable(String tablename) {

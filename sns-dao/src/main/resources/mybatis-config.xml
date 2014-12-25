@@ -9,8 +9,10 @@
 	</properties>
 	<typeAliases>
 		<!-- 微信数据 -->
-		<typeAlias alias="WeChatPAInsert" type="zx.soft.sns.dao.domain.WeChatPAInsert" />
-		<typeAlias alias="WeChatAInsert" type="zx.soft.sns.dao.domain.WeChatAInsert" />
+		<typeAlias alias="WeChatPAInsert" type="zx.soft.sns.dao.domain.wechat.WeChatPAInsert" />
+		<typeAlias alias="WeChatAInsert" type="zx.soft.sns.dao.domain.wechat.WeChatAInsert" />
+		<!-- QQ数据 -->
+		<typeAlias alias="QQAccountInsert" type="zx.soft.sns.dao.domain.qq.QQAccountInsert" />
 	</typeAliases>
 	<environments default="sns">
 		<environment id="sns">
@@ -29,6 +31,7 @@
 	</environments>
 	<mappers>
 		<mapper resource="WeChatDaoMapper.xml" />
+		<mapper resource="QQDaoMapper.xml" />
 	</mappers>
 </configuration>
 	

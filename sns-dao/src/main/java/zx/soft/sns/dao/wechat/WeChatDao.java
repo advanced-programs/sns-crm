@@ -1,4 +1,4 @@
-package zx.soft.sns.dao.weixin;
+package zx.soft.sns.dao.wechat;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;

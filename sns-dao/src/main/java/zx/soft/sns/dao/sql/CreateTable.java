@@ -17,15 +17,19 @@ public class CreateTable {
 
 	public static final String WECHAT_ARTICLES = "wechat_articles";
 
+	public static final String QQ_ACCOUNTS = "qq_accounts";
+
 	/**
 	 * 主函数
 	 */
 	public static void main(String[] args) {
 		SnsDbcp snsDbcp = new SnsDbcp();
-		logger.info("Creating WeChatPublicAccountTable ...");
-		snsDbcp.createWeChatPublicAccountTable(WECHAT_PUBLIC_ACCOUNTS);
-		logger.info("Creating WeChatArticleTable ...");
-		snsDbcp.createWeChatArticleTable(WECHAT_ARTICLES);
+		//		logger.info("Creating WeChatPublicAccountTable ...");
+		//		snsDbcp.createWeChatPublicAccountTable(WECHAT_PUBLIC_ACCOUNTS);
+		//		logger.info("Creating WeChatArticleTable ...");
+		//		snsDbcp.createWeChatArticleTable(WECHAT_ARTICLES);
+		logger.info("Creating QQAccountTable ...");
+		snsDbcp.createQQAccountTable(QQ_ACCOUNTS);
 		snsDbcp.close();
 	}
 

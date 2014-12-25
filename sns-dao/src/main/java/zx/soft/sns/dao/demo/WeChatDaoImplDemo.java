@@ -7,7 +7,7 @@ import zx.soft.sns.dao.domain.wechat.WeChatAInfo;
 import zx.soft.sns.dao.domain.wechat.WeChatAInsert;
 import zx.soft.sns.dao.domain.wechat.WeChatPAInfo;
 import zx.soft.sns.dao.domain.wechat.WeChatPAInsert;
-import zx.soft.sns.dao.weixin.WeChatDaoImpl;
+import zx.soft.sns.dao.wechat.WeChatDaoImpl;
 import zx.soft.utils.json.JsonUtils;
 
 public class WeChatDaoImplDemo {

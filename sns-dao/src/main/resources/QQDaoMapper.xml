@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.sns.dao.qq.QQDao">
+
+	<!-- 插入QQ帐号信息 -->
+	<insert id="insertQQAccount" parameterType="QQAccountInsert"
+		useGeneratedKeys="true" keyProperty="id" flushCache="true"
+		statementType="PREPARED">
+		INSERT INTO ${tablename}
+		(`qq`,`name`,`gender`,`age`,`qq_group`,`lasttime`)
+		VALUES
+		(#{qq},#{name},#{gender},#{age},#{qqGroup},NOW());
+	</insert>
+
+</mapper>
