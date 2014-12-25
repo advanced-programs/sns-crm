@@ -1,4 +1,4 @@
-package zx.soft.sns.dao.domain;
+package zx.soft.sns.dao.domain.wechat;
 
 /**
  * Mybatis返回的数据模型

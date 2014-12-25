@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import zx.soft.redis.client.cache.Cache;
 import zx.soft.sns.core.utils.AnalyzerTool;
-import zx.soft.sns.dao.domain.WeChatPAInsert;
-import zx.soft.sns.dao.domain.WeChatPublicAccount;
+import zx.soft.sns.dao.domain.wechat.WeChatPAInsert;
+import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.sns.parser.wechat.WeChatParser;
 

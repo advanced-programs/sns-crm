@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import zx.soft.sns.dao.common.MybatisConfig;
-import zx.soft.sns.dao.domain.WeChatPAInsert;
-import zx.soft.sns.dao.domain.WeChatPublicAccount;
+import zx.soft.sns.dao.domain.wechat.WeChatPAInsert;
+import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.sns.parser.wechat.WeChatParser;
 

@@ -3,10 +3,10 @@ package zx.soft.sns.dao.demo;
 import java.util.Date;
 
 import zx.soft.sns.dao.common.MybatisConfig;
-import zx.soft.sns.dao.domain.WeChatAInfo;
-import zx.soft.sns.dao.domain.WeChatAInsert;
-import zx.soft.sns.dao.domain.WeChatPAInfo;
-import zx.soft.sns.dao.domain.WeChatPAInsert;
+import zx.soft.sns.dao.domain.wechat.WeChatAInfo;
+import zx.soft.sns.dao.domain.wechat.WeChatAInsert;
+import zx.soft.sns.dao.domain.wechat.WeChatPAInfo;
+import zx.soft.sns.dao.domain.wechat.WeChatPAInsert;
 import zx.soft.sns.dao.weixin.WeChatDaoImpl;
 import zx.soft.utils.json.JsonUtils;
 

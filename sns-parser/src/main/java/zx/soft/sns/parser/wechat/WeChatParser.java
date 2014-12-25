@@ -5,8 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import zx.soft.sns.dao.domain.WeChatArticle;
-import zx.soft.sns.dao.domain.WeChatPublicAccount;
+import zx.soft.sns.dao.domain.wechat.WeChatArticle;
+import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.parser.utils.JsoupUtils;
 import zx.soft.utils.http.HttpUtils;
 import zx.soft.utils.json.JsonUtils;

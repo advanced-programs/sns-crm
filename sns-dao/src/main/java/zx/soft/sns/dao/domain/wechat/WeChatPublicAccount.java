@@ -1,18 +1,29 @@
-package zx.soft.sns.dao.domain;
+package zx.soft.sns.dao.domain.wechat;
 
-public class WeChatPAInsert {
+/**
+ * 微信公共帐号数据模型
+ * 
+ * @author wgybzb
+ *
+ */
+public class WeChatPublicAccount {
 
-	private final String tablename;
+	// 微信号
 	private final String wid;
+	// 微信名称
 	private final String name;
+	// Open ID
 	private final String openId;
+	// 头像地址
 	private final String headUrl;
+	// 功能介绍
 	private final String description;
+	// 微信认证
 	private final String verifyInfo;
+	// 最近文章地址
 	private final String lastArticleUrl;
 
-	public WeChatPAInsert(Builder builder) {
-		this.tablename = builder.tablename;
+	public WeChatPublicAccount(Builder builder) {
 		this.wid = builder.wid;
 		this.name = builder.name;
 		this.openId = builder.openId;
@@ -24,17 +35,15 @@ public class WeChatPAInsert {
 
 	public static class Builder {
 
-		private String tablename = "";
 		private String wid = "";
 		private String name = "";
 		private String openId = "";
 		private String headUrl = "";
 		private String description = "";
 		private String verifyInfo = "";
-		private String lastArticleUrl;
+		private String lastArticleUrl = "";
 
-		public Builder(String tablename, String wid, String name) {
-			this.tablename = tablename;
+		public Builder(String wid, String name) {
 			this.wid = wid;
 			this.name = name;
 		}
@@ -64,14 +73,10 @@ public class WeChatPAInsert {
 			return this;
 		}
 
-		public WeChatPAInsert build() {
-			return new WeChatPAInsert(this);
+		public WeChatPublicAccount build() {
+			return new WeChatPublicAccount(this);
 		}
 
-	}
-
-	public String getTablename() {
-		return tablename;
 	}
 
 	public String getWid() {
@@ -100,6 +105,13 @@ public class WeChatPAInsert {
 
 	public String getLastArticleUrl() {
 		return lastArticleUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "WeChatPublicAccount:[wid=" + wid + ",name=" + name + ",openId=" + openId + ",headUrl=" + headUrl
+				+ ",description=" + description + ",verifyInfo=" + verifyInfo + ",lastArticleUrl=" + lastArticleUrl
+				+ "]";
 	}
 
 }

@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 
-import zx.soft.sns.dao.domain.WeChatAInfo;
-import zx.soft.sns.dao.domain.WeChatAInsert;
-import zx.soft.sns.dao.domain.WeChatPAInfo;
-import zx.soft.sns.dao.domain.WeChatPAInsert;
+import zx.soft.sns.dao.domain.wechat.WeChatAInfo;
+import zx.soft.sns.dao.domain.wechat.WeChatAInsert;
+import zx.soft.sns.dao.domain.wechat.WeChatPAInfo;
+import zx.soft.sns.dao.domain.wechat.WeChatPAInsert;
 
 public interface WeChatDao {
 

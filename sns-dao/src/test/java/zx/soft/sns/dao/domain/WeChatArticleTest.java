@@ -6,6 +6,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import zx.soft.sns.dao.domain.wechat.WeChatArticle;
+
 public class WeChatArticleTest {
 
 	@Test

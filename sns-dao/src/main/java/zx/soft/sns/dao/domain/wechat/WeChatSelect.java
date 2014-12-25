@@ -1,4 +1,4 @@
-package zx.soft.sns.dao.domain;
+package zx.soft.sns.dao.domain.wechat;
 
 public class WeChatSelect {
 

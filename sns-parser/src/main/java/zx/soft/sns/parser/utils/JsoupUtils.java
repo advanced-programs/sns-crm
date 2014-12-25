@@ -12,8 +12,9 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import zx.soft.sns.dao.domain.WeChatArticle;
-import zx.soft.sns.dao.domain.WeChatPublicAccount;
+import zx.soft.sns.dao.domain.qq.QQAccount;
+import zx.soft.sns.dao.domain.wechat.WeChatArticle;
+import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.parser.domain.ArticlesResponse;
 import zx.soft.utils.checksum.CheckSumUtils;
 import zx.soft.utils.json.JsonUtils;
@@ -27,6 +28,32 @@ import zx.soft.utils.json.JsonUtils;
 public class JsoupUtils {
 
 	private static Logger logger = LoggerFactory.getLogger(JsoupUtils.class);
+
+	/**
+	 * 解析QQ信息
+	 */
+	public static List<QQAccount> parserQQAccounts(String html) {
+
+		List<QQAccount> result = new ArrayList<>();
+		Elements trs = Jsoup.parse(html).select("table").select("tbody").select("tr");
+		if (trs.size() < 2) {
+			return null;
+		}
+		Elements tds = null;
+		long qq, qqGroup;
+		int age;
+		String name, gender;
+		for (int i = 1; i < trs.size(); i++) {
+			tds = trs.get(i).select("td");
+			qq = Long.parseLong(tds.get(0).select("a").text());
+			name = tds.get(1).text();
+			gender = tds.get(2).text();
+			age = Integer.parseInt(tds.get(3).text());
+			qqGroup = Long.parseLong(tds.get(4).select("a").text());
+			result.add(new QQAccount.Builder(qq, name).setGender(gender).setAge(age).setQqGroup(qqGroup).build());
+		}
+		return result;
+	}
 
 	/**
 	 * JS接口：某个公共号的所有文章解析，有待完善。。。

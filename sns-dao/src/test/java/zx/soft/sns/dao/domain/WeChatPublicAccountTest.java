@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
+
 public class WeChatPublicAccountTest {
 
 	@Test
