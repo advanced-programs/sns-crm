@@ -24,12 +24,12 @@ public class CreateTable {
 	 */
 	public static void main(String[] args) {
 		SnsDbcp snsDbcp = new SnsDbcp();
-		//		logger.info("Creating WeChatPublicAccountTable ...");
-		//		snsDbcp.createWeChatPublicAccountTable(WECHAT_PUBLIC_ACCOUNTS);
+		logger.info("Creating WeChatPublicAccountTable ...");
+		snsDbcp.createWeChatPublicAccountTable(WECHAT_PUBLIC_ACCOUNTS);
 		//		logger.info("Creating WeChatArticleTable ...");
 		//		snsDbcp.createWeChatArticleTable(WECHAT_ARTICLES);
-		logger.info("Creating QQAccountTable ...");
-		snsDbcp.createQQAccountTable(QQ_ACCOUNTS);
+		//		logger.info("Creating QQAccountTable ...");
+		//		snsDbcp.createQQAccountTable(QQ_ACCOUNTS);
 		snsDbcp.close();
 	}
 

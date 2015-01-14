@@ -72,7 +72,11 @@ public class WeChatCore {
 				}
 			} else {
 				logger.info("Query={} related WeChatPublicAccount num is {} approximately.", keyword, (i - 1) * 10);
-				break;
+				try {
+					Thread.sleep(30 * 60 * 1000);
+				} catch (InterruptedException e) {
+					//
+				}
 			}
 		}
 		return result;

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import zx.soft.sns.core.spider.SpiderWeChatPAMain;
+import zx.soft.sns.core.spider.SpiderWeChatPASimple;
 
 /**
  * 驱动类
@@ -29,6 +30,10 @@ public class SNSCoreDriver {
 		case "spiderWeixinMain":
 			logger.info("爬取QQ数据： ");
 			SpiderWeChatPAMain.main(leftArgs);
+			break;
+		case "spiderWeChatPASimple":
+			logger.info("爬取微信公共帐号数据： ");
+			SpiderWeChatPASimple.main(leftArgs);
 			break;
 		default:
 			return;

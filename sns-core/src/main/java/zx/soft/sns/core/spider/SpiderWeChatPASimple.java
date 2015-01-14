@@ -41,7 +41,7 @@ public class SpiderWeChatPASimple {
 	 */
 	public static void main(String[] args) {
 		SpiderWeChatPASimple sws = new SpiderWeChatPASimple();
-		sws.pullWeChatPublicAccounts("娱乐", 100);
+		sws.pullWeChatPublicAccounts("娱乐");
 	}
 
 	/**
@@ -50,14 +50,14 @@ public class SpiderWeChatPASimple {
 	 * @param seed：种子关键词
 	 * @param limit：限制采集的关键词个数
 	 */
-	public void pullWeChatPublicAccounts(String seed, int limit) {
-		logger.info("Pulling WeChatPublicAccount at 1/{}.", limit);
+	public void pullWeChatPublicAccounts(String seed) {
 		// 爬取微信公共帐号，并存储到数据库，返回所有帐号名称组合字符串
 		String names = weChatCore.retriveWeChatPA2Db(seed);
 		// 将新的关键词列表添加到缓存中
 		addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
-		for (int i = 1; i < limit; i++) {
-			logger.info("Pulling WeChatPublicAccount at {}/{}.", i + 1, limit);
+		int count = 1;
+		while (true) {
+			logger.info("Pulling WeChatPublicAccount at {}.", count++);
 			// 爬取并下载
 			names = weChatCore.retriveWeChatPA2Db(popKeyword());
 			// 增加列表
