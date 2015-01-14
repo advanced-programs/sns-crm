@@ -54,7 +54,7 @@ public class WeChatCore {
 		for (int i = 1; i <= PA_LIMIT_PAGE; i++) {
 			weChats = weChatParser.parserWeChatPublicAccount(keyword, i);
 			count = 0;
-			if (weChats != null) {
+			if (weChats != null && weChats.size() > 0) {
 				for (WeChatPublicAccount weChat : weChats) {
 					if (!weChatDaoImpl.isWeChatPAExisted(WECHAT_PUBLIC_ACCOUNTS, weChat.getWid())) {
 						weChatDaoImpl.insertWeChatPA(new WeChatPAInsert.Builder(WECHAT_PUBLIC_ACCOUNTS,
@@ -71,7 +71,7 @@ public class WeChatCore {
 					break;
 				}
 			} else {
-				logger.info("Query={} related WeChatPublicAccount num is {} approximately.", keyword, (i - 1) * 10);
+				logger.info("API request limit.");
 				try {
 					Thread.sleep(30 * 60 * 1000);
 				} catch (InterruptedException e) {
