@@ -13,6 +13,7 @@ import zx.soft.sns.dao.common.MybatisConfig;
 import zx.soft.sns.dao.wechat.WeChatDaoImpl;
 import zx.soft.sns.parser.wechat.WeChatParser;
 import zx.soft.utils.chars.JavaPattern;
+import zx.soft.utils.log.LogbackUtil;
 
 /**
  * 微信公共号爬取简单实现：单线程+无Redis缓存
@@ -57,11 +58,15 @@ public class SpiderWeChatPASimple {
 		addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
 		int count = 1;
 		while (true) {
-			logger.info("Pulling WeChatPublicAccount at {}.", count++);
-			// 爬取并下载
-			names = weChatCore.retriveWeChatPA2Db(popKeyword());
-			// 增加列表
-			addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
+			try {
+				logger.info("Pulling WeChatPublicAccount at {}.", count++);
+				// 爬取并下载
+				names = weChatCore.retriveWeChatPA2Db(popKeyword());
+				// 增加列表
+				addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
+			} catch (Exception e) {
+				logger.error("Exception:{}", LogbackUtil.expection2Str(e));
+			}
 		}
 	}
 
