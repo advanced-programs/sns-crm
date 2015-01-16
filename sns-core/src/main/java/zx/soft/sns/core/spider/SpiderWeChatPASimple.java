@@ -54,18 +54,31 @@ public class SpiderWeChatPASimple {
 	public void pullWeChatPublicAccounts(String seed) {
 		// 爬取微信公共帐号，并存储到数据库，返回所有帐号名称组合字符串
 		String names = weChatCore.retriveWeChatPA2Db(seed);
+		System.out.println(names);
+		if (names.length() == 0) {
+			addKeyword(seed);
+		}
 		// 将新的关键词列表添加到缓存中
 		addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
+		String keyword = "";
 		int count = 1;
 		while (true) {
 			try {
 				logger.info("Pulling WeChatPublicAccount at {}.", count++);
 				// 爬取并下载
-				names = weChatCore.retriveWeChatPA2Db(popKeyword());
+				keyword = popKeyword();
+				names = weChatCore.retriveWeChatPA2Db(keyword);
 				// 增加列表
 				addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
 			} catch (Exception e) {
-				logger.error("Exception:{}", LogbackUtil.expection2Str(e));
+				// 抓取失败的话，重新将关键词添加到列表中
+				logger.info("API request limit.");
+				try {
+					addKeyword(keyword);
+					Thread.sleep(60 * 60 * 1000);
+				} catch (InterruptedException e1) {
+					logger.error("Exception:{}", LogbackUtil.expection2Str(e1));
+				}
 			}
 		}
 	}
@@ -77,6 +90,7 @@ public class SpiderWeChatPASimple {
 		if (!JavaPattern.isAllNumAndLetter(keyword)) {
 			keywordsCache.add(keyword);
 		}
+		logger.info("Cache's size is {}.", keywordsCache.size());
 	}
 
 	private void addKeywords(String... keywords) {

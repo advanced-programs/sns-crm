@@ -71,12 +71,7 @@ public class WeChatCore {
 					break;
 				}
 			} else {
-				logger.info("API request limit.");
-				try {
-					Thread.sleep(30 * 60 * 1000);
-				} catch (InterruptedException e) {
-					//
-				}
+				throw new RuntimeException("API limits.");
 			}
 		}
 		return result;

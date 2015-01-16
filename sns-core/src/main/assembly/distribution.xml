@@ -20,6 +20,13 @@
 			<filtered>true</filtered>
 		</fileSet>
 		<fileSet>
+			<directory>ik_dic</directory>
+			<includes>
+				<include>*</include>
+			</includes>
+			<outputDirectory>/ik_dic</outputDirectory>
+		</fileSet>
+		<fileSet>
 			<directory>src/main/bin</directory>
 			<includes>
 				<include>*</include>
