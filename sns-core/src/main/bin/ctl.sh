@@ -40,6 +40,11 @@ usage() {
 start() {
   JAVA=${JAVA-'java'}
   exec $JAVA $JVMARGS -classpath "$CLASSPATH" $mainClass "$@" &
+  echo $! > main.pid
+}
+
+stop() {
+  kill `cat main.pid` > /dev/null
 }
 
 case $1 in
@@ -48,10 +53,12 @@ case $1 in
     start $@
     ;;
   (stop)
-    echo "stop"
+    stop
     ;;
   (restart)
-    echo "restart"
+    stop
+    shift
+    start $@
     ;;
   (*)
     echo >&2 "$PRG: error: unknown command '$1'"
