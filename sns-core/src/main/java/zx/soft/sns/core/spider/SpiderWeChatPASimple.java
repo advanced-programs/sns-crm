@@ -41,8 +41,12 @@ public class SpiderWeChatPASimple {
 	 * 主函数
 	 */
 	public static void main(String[] args) {
+		if (args.length < 1) {
+			System.err.println("Usage: <seed-keyword>");
+			System.exit(-1);
+		}
 		SpiderWeChatPASimple sws = new SpiderWeChatPASimple();
-		sws.pullWeChatPublicAccounts("娱乐");
+		sws.pullWeChatPublicAccounts(args[0]);
 	}
 
 	/**
@@ -60,25 +64,16 @@ public class SpiderWeChatPASimple {
 		}
 		// 将新的关键词列表添加到缓存中
 		addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
-		String keyword = "";
 		int count = 1;
 		while (true) {
 			try {
 				logger.info("Pulling WeChatPublicAccount at {}.", count++);
 				// 爬取并下载
-				keyword = popKeyword();
-				names = weChatCore.retriveWeChatPA2Db(keyword);
+				names = weChatCore.retriveWeChatPA2Db(popKeyword());
 				// 增加列表
 				addKeywords(ANALYZER_TOOL.analyzerTextToArr(names));
 			} catch (Exception e) {
-				// 抓取失败的话，重新将关键词添加到列表中
-				logger.info("API request limit.");
-				try {
-					addKeyword(keyword);
-					Thread.sleep(60 * 60 * 1000);
-				} catch (InterruptedException e1) {
-					logger.error("Exception:{}", LogbackUtil.expection2Str(e1));
-				}
+				logger.error("Exception:{}", LogbackUtil.expection2Str(e));
 			}
 		}
 	}
@@ -90,12 +85,14 @@ public class SpiderWeChatPASimple {
 		if (!JavaPattern.isAllNumAndLetter(keyword)) {
 			keywordsCache.add(keyword);
 		}
-		logger.info("Cache's size is {}.", keywordsCache.size());
 	}
 
 	private void addKeywords(String... keywords) {
-		for (String keyword : keywords) {
-			addKeyword(keyword);
+		if (keywords != null) {
+			for (String keyword : keywords) {
+				addKeyword(keyword);
+			}
+			logger.info("Cache's size is {}.", keywordsCache.size());
 		}
 	}
 

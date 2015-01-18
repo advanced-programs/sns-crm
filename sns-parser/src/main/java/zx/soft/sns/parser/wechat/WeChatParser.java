@@ -2,9 +2,6 @@ package zx.soft.sns.parser.wechat;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import zx.soft.sns.dao.domain.wechat.WeChatArticle;
 import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.parser.utils.JsoupUtils;
@@ -13,13 +10,10 @@ import zx.soft.utils.json.JsonUtils;
 
 public class WeChatParser {
 
-	private static Logger logger = LoggerFactory.getLogger(WeChatParser.class);
-
 	/**
 	 * 测试函数
 	 */
 	public static void main(String[] args) {
-
 		WeChatParser pwc = new WeChatParser();
 		List<WeChatPublicAccount> records = pwc.parserWeChatPublicAccount("娱乐", 2);
 		System.out.println(JsonUtils.toJson(records));
@@ -30,7 +24,6 @@ public class WeChatParser {
 	 * 测试：oIWsFt8qnA4wjDBfjG9L1C8S2hG8
 	 */
 	public List<WeChatArticle> parserWeChatArticles(String openid, int page) {
-		logger.info("WeChatArticles openid={}, page={}", openid, page);
 		// 获取URL
 		String url = WeChatURL.getWeChatArticleApi(openid, page);
 		// 获取html页面
@@ -43,7 +36,6 @@ public class WeChatParser {
 	 * 页面：微信文章搜索解析
 	 */
 	public List<WeChatArticle> parserWeChatArticle(String keyword, int page) {
-		logger.info("WeChatArticle query={}, page={}", keyword, page);
 		// 获取URL
 		String url = WeChatURL.getWeChatAUrl(keyword, page, Boolean.FALSE);
 		// 获取html页面
@@ -56,7 +48,6 @@ public class WeChatParser {
 	 * 页面：微信公共号解析
 	 */
 	public List<WeChatPublicAccount> parserWeChatPublicAccount(String keyword, int page) {
-		logger.info("WeChatPublicAccount query={}, page={}", keyword, page);
 		// 获取URL
 		String url = WeChatURL.getWeChatPAUrl(keyword, page, Boolean.FALSE);
 		// 获取html页面

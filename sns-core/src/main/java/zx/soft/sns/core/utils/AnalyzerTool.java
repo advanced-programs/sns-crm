@@ -44,6 +44,9 @@ public class AnalyzerTool {
 	}
 
 	public String[] analyzerTextToArr(String text) {
+		if ("".equalsIgnoreCase(text)) {
+			return null;
+		}
 		List<String> result = analyzerTextToList(text);
 		return result.toArray(new String[result.size()]);
 	}

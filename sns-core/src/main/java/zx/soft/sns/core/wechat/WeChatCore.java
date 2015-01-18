@@ -1,5 +1,6 @@
 package zx.soft.sns.core.wechat;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import zx.soft.sns.dao.domain.wechat.WeChatPAInsert;
 import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.dao.wechat.WeChatDaoImpl;
 import zx.soft.sns.parser.wechat.WeChatParser;
+import zx.soft.utils.log.LogbackUtil;
 
 /**
  * 微信公共帐号/文章信息爬取核心类
@@ -50,30 +52,47 @@ public class WeChatCore {
 	public String retriveWeChatPA2Db(String keyword) {
 		String result = "";
 		List<WeChatPublicAccount> weChats = null;
-		int count;
+		HashMap<String, String> tmp;
 		for (int i = 1; i <= PA_LIMIT_PAGE; i++) {
+			logger.info("Pulling WeChatPublicAccount of {} at page:{}.", keyword, i);
 			weChats = weChatParser.parserWeChatPublicAccount(keyword, i);
-			count = 0;
-			if (weChats != null && weChats.size() > 0) {
-				for (WeChatPublicAccount weChat : weChats) {
-					if (!weChatDaoImpl.isWeChatPAExisted(WECHAT_PUBLIC_ACCOUNTS, weChat.getWid())) {
-						weChatDaoImpl.insertWeChatPA(new WeChatPAInsert.Builder(WECHAT_PUBLIC_ACCOUNTS,
-								weChat.getWid(), weChat.getName()).setDescription(weChat.getDescription())
-								.setHeadUrl(weChat.getHeadUrl()).setLastArticleUrl(weChat.getLastArticleUrl())
-								.setOpenId(weChat.getOpenId()).setVerifyInfo(weChat.getVerifyInfo()).build());
-						result += weChat.getName();
-					} else {
-						count++;
-					}
+			//			System.err.println(JsonUtils.toJsonWithoutPretty(weChats));
+			while (weChats.size() == 0) {
+				logger.info("API request limit.");
+				try {
+					Thread.sleep(60 * 60 * 1000);
+				} catch (InterruptedException e) {
+					logger.error("Exception:{}", LogbackUtil.expection2Str(e));
 				}
-				if (count == weChats.size()) {
-					logger.info("Query={} related WeChatPublicAccount num is {} approximately.", keyword, (i - 1) * 10);
-					break;
-				}
+				weChats = weChatParser.parserWeChatPublicAccount(keyword, i);
+			}
+			tmp = dump2Db(weChats);
+			if (Integer.parseInt(tmp.get("count")) == weChats.size()) {
+				break;
+			}
+			result += tmp.get("name");
+		}
+		return result;
+	}
+
+	private HashMap<String, String> dump2Db(List<WeChatPublicAccount> weChats) {
+		HashMap<String, String> result = new HashMap<>();
+		int count = 0;
+		String name = "";
+		for (WeChatPublicAccount weChat : weChats) {
+			if (!weChatDaoImpl.isWeChatPAExisted(WECHAT_PUBLIC_ACCOUNTS, weChat.getWid())) {
+				weChatDaoImpl.insertWeChatPA(new WeChatPAInsert.Builder(WECHAT_PUBLIC_ACCOUNTS, weChat.getWid(), weChat
+						.getName()).setDescription(weChat.getDescription()).setHeadUrl(weChat.getHeadUrl())
+						.setLastArticleUrl(weChat.getLastArticleUrl()).setOpenId(weChat.getOpenId())
+						.setVerifyInfo(weChat.getVerifyInfo()).build());
+				name += weChat.getName();
 			} else {
-				throw new RuntimeException("API limits.");
+				count++;
 			}
 		}
+		result.put("count", count + "");
+		result.put("name", name);
+
 		return result;
 	}
 
