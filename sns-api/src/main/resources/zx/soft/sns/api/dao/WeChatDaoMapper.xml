@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zx.soft.sns.api.dao.WeChatMapper">
+
+	<!-- 插入微信公共帐号信息 -->
+	<insert id="insertWeChatPA" parameterType="zx.soft.sns.api.domain.WeChatPublicAccount"
+		useGeneratedKeys="true" keyProperty="id" flushCache="true"
+		statementType="PREPARED">
+		INSERT INTO `wechat_public_accounts`
+		(`wid`,`name`,`open_id`,`head_url`,`description`,`verify_info`,`last_article_url`,`lasttime`)
+		VALUES
+		(#{wid},#{name},#{open_id},#{head_url},#{description},#{verify_info},#{last_article_url},NOW());
+	</insert>
+	
+</mapper>

@@ -1,0 +1,17 @@
+
+1. POST
+
+curl -X POST http://localhost:8888/wechats --header 'Content-Type:application/json' --data '[{"wid":"xiaoqingxin222","name":"糗事笑话","open_id":"oIWsFtxuzyPnlgxw6RnWEV_ucjow","head_url":"http://img01.sogoucdn.com/app/a/100520090/oIWsFtxuzyPnlgxw6RnWEV_ucjow","description":"生活无非是笑笑别人,然后被人笑笑而已-----每天定时奉上本星球最爆笑的真实糗事.","verify_info":"金华洛可信息科技有限公司","last_article_url":"http://mp.weixin.qq.com/s?__biz=MjM5NDA1MDcwMA==&mid=205926768&idx=1&sn=783550baae3c63b24f886e9037494dda&3rd=MzA3MDU4NTYzMw==&scene=6#rd"},{"wid":"youmo365","name":"搞笑笑话幽默","open_id":"oIWsFtyk_QK_s1LnfWYKzkIh_iZA","head_url":"http://img01.sogoucdn.com/app/a/100520090/oIWsFtyk_QK_s1LnfWYKzkIh_iZA","description":"每日推荐各种幽默段子、网络趣闻;让我们的生活更加快乐!","verify_info":"深圳市幽默叁陆伍投资管理有限公司","last_article_url":"http://mp.weixin.qq.com/s?__biz=MjM5NzExMzAwMA==&mid=209366802&idx=1&sn=50d1bca6dd82caba53433212261cb988&3rd=MzA3MDU4NTYzMw==&scene=6#rd"},{"wid":"gaoxiao10086","name":"全球搞笑笑话榜","open_id":"oIWsFt_iQgrkcxY2KRPmGk7UF_Mk","head_url":"http://img01.sogoucdn.com/app/a/100520090/oIWsFt_iQgrkcxY2KRPmGk7UF_Mk","description":"从前有个人关注了我,然后Ta过上了幸福快乐的生活!每日发布新鲜、时尚、搞笑、有趣信息,猛点关注,欢乐随行!","verify_info":"北京创意互动网络科技有限公司","last_article_url":"http://mp.weixin.qq.com/s?__biz=MjM5MjMwMzA0MA==&mid=432428830&idx=1&sn=790beb30bd2dda56f54f610e08b7e3ca&3rd=MzA3MDU4NTYzMw==&scene=6#rd"}]%'
+
+2. DELETE
+
+curl -X GET http://localhost:8888/wechats/xiaoqingxin222,youmo365,gaoxiao10086 
+
+3. GET
+
+curl -X DELETE http://localhost:8888/wechats/xiaoqingxin222,youmo365,gaoxiao10086
+
+4. PUT
+
+curl -X PUT http://localhost:8888/wechats --header 'Content-Type:application/json' --data '[{"wid":"xiaoqingxin222","name":"糗事笑话","open_id":"oIWsFtxuzyPnlgxw6RnWEV_ucjow","head_url":"http://img01.sogoucdn.com/app/a/100520090/oIWsFtxuzyPnlgxw6RnWEV_ucjow","description":"生活无非是笑笑别人,然后 被人笑笑而已-----每天定时奉上本星球最爆笑的真实糗事.","verify_info":"金华洛可信息科技有限公司","last_article_url":"http://mp.weixin.qq.com/s?__biz=MjM5NDA1MDcwMA==&mid=205926768&idx=1&sn=783550baae3c63b24f886e9037494dda&3rd=MzA3MDU4NTYzMw==&scene=6#rd"},{"wid":"youmo365","name":"搞笑笑话幽默","open_id":"oIWsFtyk_QK_s1LnfWYKzkIh_iZA","head_url":"http://img01.sogoucdn.com/app/a/100520090/oIWsFtyk_QK_s1LnfWYKzkIh_iZA","description":"每日推荐各种幽默段子、网络趣闻;让我们的生活更加快乐!","verify_info":"深圳市幽默叁陆伍投资管理有限公司","last_article_url":"http://mp.weixin.qq.com/s?__biz=MjM5NzExMzAwMA==&mid=209366802&idx=1&sn=50d1bca6dd82caba53433212261cb988&3rd=MzA3MDU4NTYzMw==&scene=6#rd"},{"wid":"gaoxiao10086","name":"全球搞笑笑话榜1111","open_id":"oIWsFt_iQgrkcxY2KRPmGk7UF_Mk","head_url":"1111","description":"1111","verify_info":"1111","last_article_url":"111"}]%'
+

@@ -18,6 +18,7 @@
 		<module>sns-parser</module>
 		<module>sns-dao</module>
 		<module>sns-core</module>
+		<module>sns-api</module>
 	</modules>
 
 	<dependencies>
