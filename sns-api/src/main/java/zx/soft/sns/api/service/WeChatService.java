@@ -20,7 +20,7 @@ import zx.soft.utils.checksum.CheckSumUtils;
 import zx.soft.utils.log.LogbackUtil;
 
 /**
- * OA全网任务缓存查询服务类
+ * 微信公共帐号服务类
  *
  * @author wanggang
  *

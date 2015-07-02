@@ -15,7 +15,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * 用户数据接口服务：hefei07
+ * 微信接口服务：hefei07
  *
  * 运行目录：/home/zxdfs/run-work/wechat
  * 运行命令：cd sns-api
