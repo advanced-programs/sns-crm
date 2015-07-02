@@ -13,6 +13,8 @@
 
 	<context:component-scan base-package="zx.soft.sns.api.controller" />
 	<context:component-scan base-package="zx.soft.sns.api.service" />
+	
+	<bean id="analyzerTool" class="zx.soft.sns.api.utils.AnalyzerTool" />
 
 	<!-- mapper -->
 	<bean id="baseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"

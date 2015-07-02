@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import zx.soft.sns.api.service.KeywordService;
+import zx.soft.sns.api.service.WeChatService;
 
 /**
  *  微信公共号CURD接口
@@ -31,7 +31,7 @@ import zx.soft.sns.api.service.KeywordService;
 public class KeywordController {
 
 	@Inject
-	private KeywordService keywordService;
+	private WeChatService weChatService;
 
 	/**
 	 * 插入多个关键词
@@ -39,7 +39,7 @@ public class KeywordController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void addKeywords(@RequestBody List<String> keywords) {
-		keywordService.insertKeywords(keywords);
+		weChatService.insertKeywords(keywords);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class KeywordController {
 	@RequestMapping(value = "/{num}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody List<String> retriveKeywords(@PathVariable String num) {
-		return keywordService.selectKeywords(num);
+		return weChatService.selectKeywords(num);
 	}
 
 }
