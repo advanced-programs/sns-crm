@@ -12,13 +12,13 @@ curl -X POST http://192.168.32.17:8000/wechat/accounts --header 'Content-Type:ap
 `2. DELETE`
 
 ```Java
-curl -X GET http://192.168.32.17:8000/wechat/accounts/xiaoqingxin222,youmo365,gaoxiao10086 
+curl -X DELETE http://192.168.32.17:8000/wechat/accounts/xiaoqingxin222,youmo365,gaoxiao10086 
 ```
 
 `3. GET`
 
 ```Java
-curl -X DELETE http://192.168.32.17:8000/wechat/accounts/xiaoqingxin222,youmo365,gaoxiao10086
+curl -X GET http://192.168.32.17:8000/wechat/accounts/xiaoqingxin222,youmo365,gaoxiao10086
 ```
 
 `4. PUT`
