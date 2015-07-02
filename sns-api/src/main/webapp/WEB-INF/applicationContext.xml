@@ -19,7 +19,11 @@
 		abstract="true" lazy-init="true">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
+
+	<bean id="keywordMapper" parent="baseMapper">
+		<property name="mapperInterface" value="zx.soft.sns.api.dao.KeywordMapper" />
+	</bean>
+
 	<bean id="weChatMapper" parent="baseMapper">
 		<property name="mapperInterface" value="zx.soft.sns.api.dao.WeChatMapper" />
 	</bean>
@@ -59,5 +63,5 @@
 	</bean>
 
 	<context:property-placeholder location="classpath:db.properties" />
-	
+
 </beans>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2015-07-01 10:49:46
+-- Generation Time: 2015-07-02 03:53:29
 -- 服务器版本： 5.5.37-MariaDB-log
 -- PHP Version: 5.5.12
 
@@ -28,9 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `wechat_keywords` (
 `id` int(11) NOT NULL COMMENT '自增ID',
+  `kid` bigint(20) unsigned NOT NULL COMMENT '关键词CRC32编码',
   `keyword` char(50) NOT NULL COMMENT '关键词',
   `lasttime` datetime NOT NULL COMMENT '插入时间'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='关键词列表' AUTO_INCREMENT=1 ;
+) ENGINE=MEMORY  DEFAULT CHARSET=utf8 COMMENT='关键词列表' AUTO_INCREMENT=8 ;
 
 --
 -- Indexes for dumped tables
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `wechat_keywords` (
 -- Indexes for table `wechat_keywords`
 --
 ALTER TABLE `wechat_keywords`
- ADD PRIMARY KEY (`id`), ADD KEY `lasttime` (`lasttime`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `kid` (`kid`), ADD KEY `lasttime` (`lasttime`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -50,7 +51,7 @@ ALTER TABLE `wechat_keywords`
 -- AUTO_INCREMENT for table `wechat_keywords`
 --
 ALTER TABLE `wechat_keywords`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID';
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

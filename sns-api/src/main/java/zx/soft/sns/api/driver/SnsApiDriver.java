@@ -20,7 +20,7 @@ public class SnsApiDriver {
 		ProgramDriver pgd = new ProgramDriver();
 		try {
 			// 运行在hefei07机器上
-			pgd.addClass("snsApiServer", SnsApiServer.class, "微信公共帐号CURD接口服务");
+			pgd.addClass("snsApiServer", SnsApiServer.class, "微信公共帐号相关CURD接口服务");
 			pgd.driver(args);
 			// Success
 			exitCode = 0;

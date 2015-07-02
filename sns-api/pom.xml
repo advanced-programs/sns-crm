@@ -10,8 +10,35 @@
 
 	<artifactId>sns-api</artifactId>
 	<name>SNS API</name>
-	
+
 	<dependencies>
+		<!-- 本地分词库 -->
+		<dependency>
+			<groupId>zx.soft</groupId>
+			<artifactId>analyzer-ik</artifactId>
+			<version>2.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.solr</groupId>
+					<artifactId>solr-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>zx.soft</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>1.1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.restlet.jse</groupId>
+					<artifactId>org.restlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.restlet.jse</groupId>
+					<artifactId>org.restlet.ext.jackson</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- Json包 -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>

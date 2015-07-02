@@ -1,6 +1,5 @@
 package zx.soft.sns.api.dao;
 
-import org.apache.ibatis.annotations.ConstructorArgs;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
@@ -21,7 +20,6 @@ public interface WeChatMapper {
 	 */
 	@Select("SELECT `wid`,`name`,`open_id`,`head_url`,`description`,`verify_info`,`last_article_url` "
 			+ "FROM `wechat_public_accounts` WHERE `wid` = #{wid}")
-	@ConstructorArgs()
 	@ResultType(value = WeChatPublicAccount.class)
 	public WeChatPublicAccount selectWeChatPA(@Param("wid") String wid);
 

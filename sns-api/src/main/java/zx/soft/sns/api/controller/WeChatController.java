@@ -20,20 +20,20 @@ import zx.soft.sns.api.service.WeChatService;
  *  微信公共号CURD接口
  *
  * 接口说明：
- *       1、POST:   http://localhost:8888/wechats
+ *       1、POST:   http://localhost:8888/wechat/accounts
  *                     list对象
- *       2、DELETE: http://localhost:8888/wechats/{wids}
+ *       2、DELETE: http://localhost:8888/wechat/accounts/{wids}
  *            renrenjiaoyou,ios3721,xiaoqingxin222
- *       3、GET：   http://localhost:8888/wechats/{wids}
+ *       3、GET：   http://localhost:8888/wechat/accounts/{wids}
  *            renrenjiaoyou,ios3721,xiaoqingxin222
- *       4、PUT：   http://localhost:8888/wechats
+ *       4、PUT：   http://localhost:8888/wechat/accounts
  *                     list对象
  *
  * @author wanggang
  *
  */
 @Controller
-@RequestMapping("/wechats")
+@RequestMapping("/wechat/accounts")
 public class WeChatController {
 
 	@Inject
@@ -50,7 +50,6 @@ public class WeChatController {
 
 	/**
 	 * 查询多个帐号
-	 * @return
 	 */
 	@RequestMapping(value = "/{wids}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)

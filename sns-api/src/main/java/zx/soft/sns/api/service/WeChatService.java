@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import zx.soft.sns.api.dao.WeChatMapper;
 import zx.soft.sns.api.domain.WeChatPublicAccount;
+import zx.soft.utils.log.LogbackUtil;
 
 /**
  * OA全网任务缓存查询服务类
@@ -19,6 +22,8 @@ import zx.soft.sns.api.domain.WeChatPublicAccount;
 @Service
 public class WeChatService {
 
+	private static Logger logger = LoggerFactory.getLogger(WeChatService.class);
+
 	@Inject
 	private WeChatMapper weChatMapper;
 
@@ -27,7 +32,11 @@ public class WeChatService {
 	 */
 	public void insertWeChatPAs(List<WeChatPublicAccount> weChatPublicAccounts) {
 		for (WeChatPublicAccount weChatPublicAccount : weChatPublicAccounts) {
-			insertWeChatPA(weChatPublicAccount);
+			try {
+				insertWeChatPA(weChatPublicAccount);
+			} catch (Exception e) {
+				logger.error("Insert Exception:{},mid:{}", LogbackUtil.expection2Str(e), weChatPublicAccount.getWid());
+			}
 		}
 	}
 
@@ -59,7 +68,11 @@ public class WeChatService {
 	 */
 	public void updateWeChatPAs(List<WeChatPublicAccount> weChatPublicAccounts) {
 		for (WeChatPublicAccount weChatPublicAccount : weChatPublicAccounts) {
-			updateWeChatPA(weChatPublicAccount);
+			try {
+				updateWeChatPA(weChatPublicAccount);
+			} catch (Exception e) {
+				logger.error("Update Exception:{},mid:{}", LogbackUtil.expection2Str(e), weChatPublicAccount.getWid());
+			}
 		}
 	}
 
