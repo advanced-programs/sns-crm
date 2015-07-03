@@ -123,8 +123,8 @@ public class WeChatService {
 
 	private void insertKeyword(String keyword) {
 		try {
-			// 排除含有数字字母以及一个字的关键词
-			if (!JavaPattern.isAllNumAndLetter(keyword) && keyword.length() > 1) {
+			// 排除非中文字符以及一个字的关键词
+			if (JavaPattern.isAllChinese(keyword) && keyword.length() > 1) {
 				keywordMapper.insertKeyword(CheckSumUtils.getCRC32(keyword), keyword);
 			}
 		} catch (Exception e) {

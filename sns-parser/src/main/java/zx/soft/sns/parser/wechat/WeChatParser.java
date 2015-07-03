@@ -5,10 +5,16 @@ import java.util.List;
 import zx.soft.sns.dao.domain.wechat.WeChatArticle;
 import zx.soft.sns.dao.domain.wechat.WeChatPublicAccount;
 import zx.soft.sns.parser.utils.JsoupUtils;
-import zx.soft.utils.http.HttpUtils;
+import zx.soft.utils.http.HttpClientDaoImpl;
 import zx.soft.utils.json.JsonUtils;
 
 public class WeChatParser {
+
+	private HttpClientDaoImpl httpClient;
+
+	public WeChatParser() {
+		httpClient = new HttpClientDaoImpl();
+	}
 
 	/**
 	 * 测试函数
@@ -27,7 +33,7 @@ public class WeChatParser {
 		// 获取URL
 		String url = WeChatURL.getWeChatArticleApi(openid, page);
 		// 获取html页面
-		String xml = HttpUtils.doGet(url, "UTF-8");
+		String xml = httpClient.doGet(url, "UTF-8");
 		List<WeChatArticle> result = JsoupUtils.parserWeChatArticles(xml);
 		return result;
 	}
@@ -39,7 +45,7 @@ public class WeChatParser {
 		// 获取URL
 		String url = WeChatURL.getWeChatAUrl(keyword, page, Boolean.FALSE);
 		// 获取html页面
-		String html = HttpUtils.doGet(url, "UTF-8");
+		String html = httpClient.doGet(url, "UTF-8");
 		List<WeChatArticle> result = JsoupUtils.parserWeChatArticle(html);
 		return result;
 	}
@@ -51,7 +57,7 @@ public class WeChatParser {
 		// 获取URL
 		String url = WeChatURL.getWeChatPAUrl(keyword, page, Boolean.FALSE);
 		// 获取html页面
-		String html = HttpUtils.doGet(url, "UTF-8");
+		String html = httpClient.doGet(url, "UTF-8");
 		List<WeChatPublicAccount> result = JsoupUtils.parserWeChatPublicAccount(html);
 		return result;
 	}
